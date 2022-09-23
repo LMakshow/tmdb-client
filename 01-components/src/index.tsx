@@ -5,11 +5,13 @@ import './App.scss';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Header from 'components/Header';
+import Page404 from 'components/404';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Header />,
+    errorElement: <Page404 />,
   },
 ]);
 
