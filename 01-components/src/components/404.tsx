@@ -7,7 +7,7 @@ export default class Page404 extends React.Component {
   render() {
     return (
       <div className="root">
-        <Header />
+        <Header pageName="404" />
         <div className="container404">
           <h1>404</h1>
           <p>Sorry, this page is not found.</p>

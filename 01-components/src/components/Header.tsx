@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logoMain from '../assets/icons/logo-main.png';
 
-export default class Header extends React.Component {
+export default class Header extends React.Component<{ pageName: string }, unknown> {
   render() {
     return (
       <div className="header header__container">
@@ -12,7 +12,7 @@ export default class Header extends React.Component {
             <span className="header__link_span">PhotoShop</span>
           </Link>
         </h1>
-        <div className="navigation">Current page: Main</div>
+        <div className="navigation">Current page: {this.props.pageName}</div>
         <Link className="navigation header__link main" to="/about">
           <span className="header__link_span">About us</span>
         </Link>

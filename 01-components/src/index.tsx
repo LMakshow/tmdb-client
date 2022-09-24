@@ -5,7 +5,7 @@ import './App.scss';
 import reportWebVitals from './reportWebVitals';
 import App from 'App';
 import Page404 from 'components/404';
-import Search from 'components/Search';
+import Main from 'components/Main';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '/',
-            element: <Search />,
+            element: <Main />,
           },
         ],
       },

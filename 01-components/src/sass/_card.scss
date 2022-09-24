@@ -1,0 +1,171 @@
+.shop-page {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  background: $primary-color;
+  max-width: 1570px;
+  width: 95%;
+}
+
+.shop-card {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 10px;
+  width: 250px;
+  height: 450px;
+  justify-content: flex-start;
+  background: $primary-color;
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+  transition: all 0.2s;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px, rgba(0, 0, 0, 0.09) 0px 2px 5px, rgba(0, 0, 0, 0.07) 0px 0px 2px 0.00144px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3), 0px 2px 5px rgba(0, 0, 0, 0.15), 0px 0px 2px 0.00144px rgba(0, 0, 0, 0.12);
+  }
+
+  @media screen and (max-width: 630px) {
+    width: 48%;
+    height: auto;
+    justify-content: space-between;
+  }
+
+  @media screen and (max-width: 430px) {
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+
+.shop-card__name {
+  font-weight: 700;
+  line-height: 26px;
+  height: 52px;
+  font-size: 21px;
+
+  @media screen and (max-width: 630px) {
+    height: auto;
+  }
+
+  @media screen and (max-width: 430px) {
+    font-size: 18px;
+    line-height: 20px;
+  }
+}
+
+.shop-card__price-mp {
+  display: flex;
+}
+
+.shop-card__block {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+
+  @media screen and (max-width: 630px) {
+    column-gap: 5px;
+    row-gap: 0;
+    flex-wrap: wrap;
+  }
+}
+
+.text-big {
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 31px;
+
+  @media screen and (max-width: 430px) {
+    font-size: 22px;
+    line-height: 26px;
+  }
+}
+
+.text-aux {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: $text-secondary-color;
+
+  @media screen and (max-width: 430px) {
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+
+.shop-card__price-mpix,
+.shop-card__stock-cart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+
+  @media screen and (max-width: 630px) {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+.shop-card__type-stab {
+  @media screen and (max-width: 630px) {
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.text-in-stock {
+  color: $accent-color;
+
+  @media screen and (max-width: 630px) {
+    align-self: center;
+  }
+}
+
+.text-out-of-stock {
+  color: $text-secondary-color;
+
+  @media screen and (max-width: 630px) {
+    align-self: center;
+  }
+}
+
+.text-no-cards {
+  align-self: center;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 24px;
+}
+
+.shop-card__cart {
+  width: 119px;
+  height: 32px;
+  background: $text-color;
+  color: $primary-color;
+  border: $text-color 2px solid;
+  border-radius: 8px;
+  font-family: $font-main;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  @media screen and (max-width: 630px) {
+    width: 100%;
+    margin-top: 5px;
+  }
+}
+
+.added {
+  background: $accent-color;
+  border: $accent-color 2px solid;
+  color: $accent-dark-color;
+  font-weight: 700;
+}
