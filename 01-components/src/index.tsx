@@ -5,24 +5,18 @@ import './App.scss';
 import reportWebVitals from './reportWebVitals';
 import App from 'App';
 import Page404 from 'components/404';
-import Main from 'components/Main';
+import AboutUs from 'components/AboutUs';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <Page404 />,
-    children: [
-      {
-        errorElement: <Page404 />,
-        children: [
-          {
-            path: '/',
-            element: <Main />,
-          },
-        ],
-      },
-    ],
+  },
+  {
+    path: '/about',
+    element: <AboutUs />,
+    errorElement: <Page404 />,
   },
 ]);
 

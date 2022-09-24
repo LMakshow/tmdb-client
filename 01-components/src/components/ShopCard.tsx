@@ -1,9 +1,10 @@
 import { CameraData } from 'data';
 import React from 'react';
 
-export default class ShopCard extends React.Component<CameraData, unknown> {
+export default class ShopCard extends React.Component<CameraData, { cart: boolean }> {
   constructor(props: CameraData) {
     super(props);
+    this.state = { cart: false };
   }
 
   render() {
@@ -47,7 +48,12 @@ export default class ShopCard extends React.Component<CameraData, unknown> {
             >
               {this.props.stock ? 'In Stock' : 'On Request'}
             </p>
-            <button className="shop-card__cart">Add to Cart</button>
+            <button
+              className={`shop-card__cart ${this.state.cart ? 'added' : ''}`}
+              onClick={() => this.setState({ cart: !this.state.cart })}
+            >
+              {this.state.cart ? 'Added!' : 'Add to Cart'}
+            </button>
           </div>
         </div>
       </div>
