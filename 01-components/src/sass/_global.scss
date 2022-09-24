@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@500;700&display=swap');
-$primary-color: rgba(255,255,255,0.8);
+$primary-color: rgba(255, 255, 255, 0.8);
 $accent-color: #c00;
 $accent-dark-color: #F2F4F5;
 $text-color: #191919;
@@ -29,7 +29,8 @@ body {
   background: fixed no-repeat center/cover url("../assets/bg-2.jpg");
 }
 
-textarea:focus, input:focus{
+textarea:focus,
+input:focus {
   outline: none;
 }
 
@@ -54,4 +55,10 @@ a {
 
 .hide {
   display: none;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }

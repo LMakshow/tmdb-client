@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
 import Header from './Header';
 
 export default class Page404 extends React.Component {
   render() {
     return (
-      <div>
+      <div className="root">
         <Header />
         <div className="container404">
           <h1>404</h1>
@@ -14,6 +15,7 @@ export default class Page404 extends React.Component {
             Return to the main?
           </Link>
         </div>
+        <Footer />
       </div>
     );
   }
