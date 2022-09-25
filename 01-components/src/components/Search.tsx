@@ -1,30 +1,15 @@
 import React from 'react';
 
-interface State {
+interface SearchProps {
+  onQueryChange: (query: string) => void;
   searchQuery: string;
 }
 
-export default class Search extends React.Component<Record<string, unknown>, State> {
-  constructor(props: Record<string, unknown>) {
-    super(props);
-    this.state = {
-      searchQuery: (localStorage.getItem('searchQuery') as string) || '',
-    };
-  }
-
-  componentSaveStorage() {
-    localStorage.setItem('searchQuery', this.state.searchQuery);
-  }
-
-  componentDidMount() {
-    if (localStorage.getItem('searchQuery'))
-      this.setState({ searchQuery: localStorage.getItem('searchQuery') as string });
-    window.addEventListener('beforeunload', () => this.componentSaveStorage());
-  }
-
-  componentWillUnmount() {
-    this.componentSaveStorage();
-  }
+export default class Search extends React.Component<SearchProps, unknown> {
+  handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e === null) return;
+    this.props.onQueryChange(e.target.value);
+  };
 
   render() {
     return (
@@ -36,10 +21,8 @@ export default class Search extends React.Component<Record<string, unknown>, Sta
             placeholder="Search"
             autoComplete="off"
             autoFocus
-            value={this.state.searchQuery}
-            onChange={(event) => {
-              this.setState({ searchQuery: String(event.currentTarget.value) });
-            }}
+            value={this.props.searchQuery}
+            onChange={this.handleQueryChange}
           />
           <div className="search-clear"></div>
         </div>

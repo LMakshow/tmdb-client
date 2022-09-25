@@ -3,16 +3,49 @@ import Search from './Search';
 import ShopCard from './ShopCard';
 import data from 'data';
 
-export default class Main extends React.Component {
-  cards = data.map((item) => {
-    return <ShopCard key={item.num} {...item} />;
-  });
+interface State {
+  searchQuery: string;
+}
+
+export default class Main extends React.Component<Record<string, unknown>, State> {
+  constructor(props: Record<string, unknown>) {
+    super(props);
+    this.state = {
+      searchQuery: (localStorage.getItem('searchQuery') as string) || '',
+    };
+  }
+
+  searchQueryChange = (query: string) => {
+    this.setState({
+      searchQuery: query,
+    });
+  };
+
+  componentSaveStorage = () => {
+    localStorage.setItem('searchQuery', this.state.searchQuery);
+  };
+
+  componentDidMount() {
+    if (localStorage.getItem('searchQuery'))
+      this.setState({ searchQuery: localStorage.getItem('searchQuery') as string });
+    window.addEventListener('beforeunload', this.componentSaveStorage);
+  }
+
+  componentWillUnmount() {
+    this.componentSaveStorage();
+    window.removeEventListener('beforeunload', this.componentSaveStorage);
+  }
 
   render() {
+    const cards = data.map((item) => {
+      if (item.name.indexOf(this.state.searchQuery) !== -1)
+        return <ShopCard key={item.num} {...item} />;
+    });
+
     return (
       <div>
-        <Search />
-        <div className="shop-page">{this.cards}</div>
+        <Search onQueryChange={this.searchQueryChange} searchQuery={this.state.searchQuery} />
+        <div className="shop-page">{cards}</div>
       </div>
     );
   }
