@@ -38,7 +38,8 @@ export default class Main extends React.Component<Record<string, unknown>, State
 
   render() {
     const cards = data.map((item) => {
-      if (item.name.indexOf(this.state.searchQuery) !== -1)
+      const name = item.name.toLowerCase();
+      if (name.indexOf(this.state.searchQuery.toLowerCase()) !== -1)
         return <ShopCard key={item.num} {...item} />;
     });
 
