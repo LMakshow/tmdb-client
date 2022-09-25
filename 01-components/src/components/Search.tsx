@@ -8,7 +8,7 @@ export default class Search extends React.Component<Record<string, unknown>, Sta
   constructor(props: Record<string, unknown>) {
     super(props);
     this.state = {
-      searchQuery: localStorage.getItem('searchQuery') as string,
+      searchQuery: (localStorage.getItem('searchQuery') as string) || '',
     };
   }
 

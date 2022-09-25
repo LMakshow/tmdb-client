@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import './App.scss';
 import reportWebVitals from './reportWebVitals';
 import App from 'App';
 import Page404 from 'components/404';
 import AboutUs from 'components/AboutUs';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
+    element: <App />,
+    errorElement: <Page404 />,
+  },
+  {
+    path: '/index',
     element: <App />,
     errorElement: <Page404 />,
   },
