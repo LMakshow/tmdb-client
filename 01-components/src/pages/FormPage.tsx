@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -7,64 +8,80 @@ export default class FormPage extends React.Component {
     return (
       <div className="root">
         <Header pageName="Used Cameras: Browse And Add Yourself!" />
-        <h2 className="used-cameras-container">Add your custom camera here:</h2>
-        <div className="form-container">
-          <form>
-            <label>
-              Name:
-              <input type="text" name="name" />
-            </label>
-            <label>
-              Price:
-              <input type="number" name="price" />
-            </label>
-            <label>
-              Mpix:
-              <input type="number" name="mpix" />
-            </label>
-            <label>
-              Manufacture date:
-              <input type="date" name="date" />
-            </label>
-            <label>Type:</label>
-            <select name="type">
-              <option value="dslr">DSLR</option>
-              <option value="mirrorless">Mirrorless</option>
-              <option value="compact">Compact</option>
-              <option value="ultrazoom">Ultrazoom</option>
-            </select>
-            <div className="shop-stab__list">
-              <label className="shop-stab__option">
-                <input className="checkbox_shop" type="checkbox" name="stab" value="none" />
-                None
+        <div className="used-cameras-container">
+          <div className="used-cameras-left">
+            <h2 className="used-cameras-heading">Add your custom camera here:</h2>
+            <form className="form-container">
+              <label className="form-input">
+                Name:
+                <textarea className="form-textarea" rows={2} name="name" />
               </label>
-              <label className="shop-stab__option">
-                <input className="checkbox_shop" type="checkbox" name="stab" value="optical" />
-                Optical
+              <label className="form-input">
+                Price:
+                <input className="form-select" type="number" name="price" />
+                UAH
               </label>
-              <label className="shop-stab__option">
-                <input className="checkbox_shop" type="checkbox" name="stab" value="matrix" />
-                Matrix
+              <label className="form-input">
+                Mpix:
+                <input className="form-select" type="number" name="mpix" />
               </label>
-            </div>
-            <div className="shop-stock">
-              <input
-                className="checkbox_shop btn_stock"
-                id="stock"
-                type="checkbox"
-                name="stock"
-                value="on"
-              />
-              <label htmlFor="stock" className="shop-options__text">
-                In stock?
+              <label className="form-input">
+                Manufacture date:
+                <input className="form-select" type="date" name="date" />
               </label>
-            </div>
-            <label>
-              Add camera picture:
-              <input type="file" />
-            </label>
-            <input type="submit" value="Submit" />
-          </form>
+              <label className="form-input">
+                Type:
+                <select className="form-select" name="type">
+                  <option value="dslr">DSLR</option>
+                  <option value="mirrorless">Mirrorless</option>
+                  <option value="compact">Compact</option>
+                  <option value="ultrazoom">Ultrazoom</option>
+                </select>
+              </label>
+              <p className="form-stab__text">Stabilization:</p>
+              <div className="form-stab__list">
+                <label className="form-stab__option">
+                  <input
+                    className="form-checkbox"
+                    type="checkbox"
+                    checked
+                    name="stab"
+                    value="none"
+                  />
+                  None
+                </label>
+                <label className="form-stab__option">
+                  <input className="form-checkbox" type="checkbox" name="stab" value="optical" />
+                  Optical
+                </label>
+                <label className="form-stab__option">
+                  <input className="form-checkbox" type="checkbox" name="stab" value="matrix" />
+                  Matrix
+                </label>
+              </div>
+              <div className="form-stock">
+                <input
+                  className="form-checkbox btn_stock"
+                  id="stock"
+                  type="checkbox"
+                  name="stock"
+                  value="on"
+                  checked
+                />
+                <label htmlFor="stock" className="form-stock__option">
+                  In stock?
+                </label>
+              </div>
+              <label className="form-input">
+                Picture:
+                <input type="file" />
+              </label>
+              <input type="submit" className="button_small" value="Submit" />
+            </form>
+            <Link to="/">
+              <button className="button_big">Return to main</button>
+            </Link>
+          </div>
         </div>
         <Footer />
       </div>

@@ -16,7 +16,7 @@ export default class Search extends React.Component<SearchProps, unknown> {
     return (
       <div className="search-container">
         <Link to="/form">
-          <button className="used-cameras-button">Browse used cameras</button>
+          <button className="button_big">Browse used cameras</button>
         </Link>
         <div className="search-field">
           <input

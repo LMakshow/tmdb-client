@@ -1,9 +1,56 @@
+.used-cameras-container {
+  max-width: 1720px;
+  width: 95%;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  grid-template-rows: min-content 1fr;
+  margin: auto;
+  gap: 15px;
+
+  @media screen and (max-width: 1279px) {
+    width: 98%;
+  }
+
+  @media screen and (max-width: 939px) {
+    gap: 10px;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 95%;
+    grid-template-columns: 1fr;
+  }
+}
+
+.used-cameras-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  width: 400px;
+  background: $primary-color;
+  border-radius: 20px;
+  gap: 15px;
+
+  @media screen and (max-width: 939px) {
+    width: auto;
+    gap: 5px;
+  }
+
+  @media screen and (max-width: 767px) {
+    margin-left: -3px;
+  }
+}
+
+.used-cameras-heading {
+ text-align: center;
+}
+
 .form-container {
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 350px;
     padding: 15px;
-    gap: 10px;
+    gap: 15px;
     justify-content: space-around;
     background: $primary-color;
     border-radius: 20px;
@@ -11,7 +58,7 @@
     transition: all .4s ease;
 }
 
-.checkbox_shop {
+.form-checkbox {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -31,14 +78,37 @@
   }
 }
 
-.shop-type,
-.shop-stab {
+.form-textarea {
+  width: 100%;
+  font-size: 16px;
+  font-family: $font-main;
+  border: 2px solid $text-secondary-color;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+}
+
+.form-select {
+  width: 40%;
+  font-size: 16px;
+  font-family: $font-main;
+  border: 2px solid $text-secondary-color;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+}
+
+.form-type,
+.form-stab {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.shop-stab__list {
+.form-stab__text {
+  font-size: 18px;
+  margin-bottom: -5px;
+}
+
+.form-stab__list {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -46,7 +116,7 @@
   @media screen and (max-width: 939px) {
     align-items: flex-start;
     gap: 10px;
-    flex-direction: column;
+    
   }
 
   @media screen and (max-width: 767px) {
@@ -56,7 +126,15 @@
   }
 }
 
-.shop-stab__option {
+.form-input {
+  display: flex;
+  gap: 5px;
+  font-size: 18px;
+  align-items: center;
+}
+
+.form-stab__option,
+.form-stock__option {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -73,7 +151,7 @@
   }
 }
 
-.shop-stock {
+.form-stock {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -84,8 +162,31 @@
   order: 1;
 }
 
-.shop-buttons {
+.form-buttons {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.button_small {
+  width: 200px;
+  height: 35px;
+  align-self: center;
+  background: $accent-dark-color;
+  border-radius: 30px;
+  font-family: $font-main;
+  padding: 0 5px;
+  font-size: 20px;
+  color: $text-color;
+  border: 2px solid $text-secondary-color;
+  transition-duration: 0.4s;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid $accent-color;
+  }
+
+  &:active {
+    background: $accent-color;
+  }
 }

@@ -37,16 +37,19 @@ export default class Main extends React.Component<Record<string, unknown>, State
   }
 
   render() {
-    const cards = data.map((item) => {
+    const cards = [] as JSX.Element[];
+    data.forEach((item) => {
       const name = item.name.toLowerCase();
       if (name.indexOf(this.state.searchQuery.toLowerCase()) !== -1)
-        return <ShopCard key={item.num} {...item} />;
+        cards.push(<ShopCard key={item.num} {...item} />);
     });
 
     return (
       <div>
         <Search onQueryChange={this.searchQueryChange} searchQuery={this.state.searchQuery} />
-        <div className="shop-page">{cards}</div>
+        <div className="shop-page">
+          {cards.length === 0 ? 'No matches with the search query.' : cards}
+        </div>
       </div>
     );
   }
