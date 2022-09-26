@@ -8,6 +8,9 @@ export default class ShopCard extends React.Component<CameraData, { cart: boolea
   }
 
   render() {
+    let stab = this.props.stabilization;
+    if (Array.isArray(stab)) stab = stab.join(', ');
+
     return (
       <div className="shop-card-template">
         <div className="shop-card">
@@ -36,7 +39,7 @@ export default class ShopCard extends React.Component<CameraData, { cart: boolea
             </div>
             <div className="shop-card__block">
               <p className="text-aux">stabilization:</p>
-              <span className="shop-card__stab">{this.props.stabilization}</span>
+              <span className="shop-card__stab">{stab}</span>
             </div>
           </div>
 
