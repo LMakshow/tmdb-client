@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import App from 'App';
 import Page404 from 'components/404';
 import AboutUs from 'components/AboutUs';
+import FormPage from 'components/Form';
 
 const router = createHashRouter([
   {
@@ -21,6 +22,11 @@ const router = createHashRouter([
   {
     path: '/about',
     element: <AboutUs />,
+    errorElement: <Page404 />,
+  },
+  {
+    path: '/form',
+    element: <FormPage />,
     errorElement: <Page404 />,
   },
 ]);
