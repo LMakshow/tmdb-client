@@ -12,7 +12,7 @@ export default class Header extends React.Component<{ pageName: string }, unknow
             <span className="header__link_span">PhotoShop</span>
           </Link>
         </h1>
-        <div className="navigation">Current page: {this.props.pageName}</div>
+        <div className="navigation">{this.props.pageName}</div>
         <Link className="navigation header__link main" to="/about">
           <span className="header__link_span">About us</span>
         </Link>

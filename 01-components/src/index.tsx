@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import './App.scss';
 import reportWebVitals from './reportWebVitals';
-import App from 'App';
-import Page404 from 'components/404';
-import AboutUs from 'components/AboutUs';
-import FormPage from 'components/Form';
+import App from 'pages/MainPage';
+import Page404 from 'pages/404';
+import AboutUs from 'pages/AboutUs';
+import FormPage from 'pages/FormPage';
 
 const router = createHashRouter([
   {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Footer from './Footer';
-import Header from './Header';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 export default class Page404 extends React.Component {
   render() {

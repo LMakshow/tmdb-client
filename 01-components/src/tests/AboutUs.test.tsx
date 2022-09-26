@@ -2,7 +2,7 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 
-import AboutUs from '../components/AboutUs';
+import AboutUs from '../pages/AboutUs';
 
 const router = createBrowserRouter([
   {

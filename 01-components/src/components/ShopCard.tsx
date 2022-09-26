@@ -1,4 +1,4 @@
-import { CameraData } from 'data';
+import { CameraData } from 'assets/data';
 import React from 'react';
 
 export default class ShopCard extends React.Component<CameraData, { cart: boolean }> {

@@ -1,0 +1,91 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    padding: 15px;
+    gap: 10px;
+    justify-content: space-around;
+    background: $primary-color;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px, rgba(0, 0, 0, 0.09) 0px 2px 5px, rgba(0, 0, 0, 0.07) 0px 0px 2px 0.00144px;
+    transition: all .4s ease;
+}
+
+.checkbox_shop {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: no-repeat center/contain url(../assets/svg/checkbox-unchecked.svg);
+
+  &:hover {
+    filter: $hover-effect;
+  }
+
+  &:checked {
+    background: no-repeat center/contain url(../assets/svg/checkbox-checked.svg);
+  }
+}
+
+.shop-type,
+.shop-stab {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shop-stab__list {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  @media screen and (max-width: 939px) {
+    align-items: flex-start;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 767px) {
+    align-items: center;
+    flex-direction: row;
+    gap: 5%;
+  }
+}
+
+.shop-stab__option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 18px;
+  transition: .3s;
+  cursor: pointer;
+
+  &:hover {
+    filter: $hover-effect;
+  }
+
+  @media screen and (max-width: 359px) {
+    font-size: 16px;
+  }
+}
+
+.shop-stock {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn_stock {
+  order: 1;
+}
+
+.shop-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

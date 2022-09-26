@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import data from 'data';
+import data from 'assets/data';
 
 import ShopCard from 'components/ShopCard';
 
