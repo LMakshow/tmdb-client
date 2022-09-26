@@ -11,14 +11,17 @@ export default class ShopCard extends React.Component<CameraData, { cart: boolea
     let stab = this.props.stabilization;
     if (Array.isArray(stab)) stab = stab.join(', ');
 
+    let src = '';
+    if (this.props.img.substring(0, 5) === 'blob:') {
+      src = this.props.img;
+    } else {
+      src = `${process.env.PUBLIC_URL}/cameras/${this.props.img}.jpg`;
+    }
+
     return (
       <div className="shop-card-template">
         <div className="shop-card">
-          <img
-            className="shop-card__image"
-            src={`${process.env.PUBLIC_URL}/cameras/${this.props.img}.jpg`}
-            alt="Photo"
-          />
+          <img className="shop-card__image" src={src} alt="Photo" />
           <h2 className="shop-card__name">{this.props.name}</h2>
 
           <div className="shop-card__price-mpix">

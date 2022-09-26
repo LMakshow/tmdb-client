@@ -65,7 +65,9 @@ export default class FormPage extends React.Component<unknown, FormState> {
       manufacturer: 'Unknown',
       type: this.type.current?.value || 'DSLR',
       stabilization: stab,
-      img: 'canon_eos_4000d_18-55_dc_iii_3011c004',
+      img: this.file.current?.files
+        ? window.URL.createObjectURL(this.file.current?.files[0]) || 'no-image'
+        : 'no-image',
       stock: this.stock.current?.checked || true,
     };
     userCameras.push(addCamera);
