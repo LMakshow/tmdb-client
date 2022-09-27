@@ -6,7 +6,11 @@ interface FormPageProps {
   addCamera: (cameraData: CameraData) => void;
 }
 
-export default class CameraForm extends React.Component<FormPageProps, unknown> {
+interface FormPageState {
+  success: boolean;
+}
+
+export default class CameraForm extends React.Component<FormPageProps, FormPageState> {
   name: React.RefObject<HTMLTextAreaElement>;
   price: React.RefObject<HTMLInputElement>;
   mpix: React.RefObject<HTMLInputElement>;
@@ -21,6 +25,9 @@ export default class CameraForm extends React.Component<FormPageProps, unknown> 
 
   constructor(props: FormPageProps) {
     super(props);
+    this.state = {
+      success: false,
+    };
     this.name = React.createRef();
     this.price = React.createRef();
     this.mpix = React.createRef();
@@ -40,6 +47,19 @@ export default class CameraForm extends React.Component<FormPageProps, unknown> 
 
   enableSubmitButton = () => {
     if (this.submit.current) this.submit.current.disabled = false;
+  };
+
+  clearForm = () => {
+    if (this.name.current) this.name.current.value = '';
+    if (this.price.current) this.price.current.value = '0';
+    if (this.mpix.current) this.mpix.current.value = '0';
+    if (this.date.current) this.date.current.value = '';
+    if (this.type.current) this.type.current.value = 'dslr';
+    if (this.stabOptical.current) this.stabOptical.current.checked = false;
+    if (this.stabMatrix.current) this.stabMatrix.current.checked = false;
+    if (this.stock.current) this.stock.current.checked = true;
+    if (this.file.current) this.file.current.value = '';
+    if (this.submit.current) this.submit.current.disabled = true;
   };
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -86,10 +106,28 @@ export default class CameraForm extends React.Component<FormPageProps, unknown> 
       stock: this.stock.current?.checked || true,
     };
     this.props.addCamera(addCamera);
+    this.clearForm();
+    this.setState({
+      success: true,
+    });
     event.preventDefault();
+    setTimeout(
+      () =>
+        this.setState({
+          success: false,
+        }),
+      2000
+    );
   };
 
   render() {
+    let successMessage: JSX.Element;
+    if (this.state.success) {
+      successMessage = <div className="form-success">The data is saved, thanks!</div>;
+    } else {
+      successMessage = <div></div>;
+    }
+
     return (
       <form className="form-container" onSubmit={this.handleSubmit}>
         <label className="form-input">
@@ -197,6 +235,8 @@ export default class CameraForm extends React.Component<FormPageProps, unknown> 
         <button type="submit" className="button_small" ref={this.submit}>
           Submit
         </button>
+
+        {successMessage}
       </form>
     );
   }
