@@ -10,6 +10,8 @@ export type CameraData = {
   stock: boolean;
 };
 
+export const userCameraData: CameraData[] = [];
+
 const data: CameraData[] = [
   {
     num: '1',
