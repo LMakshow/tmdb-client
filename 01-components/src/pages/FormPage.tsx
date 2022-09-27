@@ -2,6 +2,7 @@ import { CameraData } from 'assets/data';
 import ShopCard from 'components/ShopCard';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import validFileType from 'utils/fileUtils';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -30,6 +31,7 @@ export default class FormPage extends React.Component<unknown, FormState> {
   stabMatrix: React.RefObject<HTMLInputElement>;
   stock: React.RefObject<HTMLInputElement>;
   file: React.RefObject<HTMLInputElement>;
+  submit: React.RefObject<HTMLButtonElement>;
 
   constructor(props: unknown) {
     super(props);
@@ -43,7 +45,16 @@ export default class FormPage extends React.Component<unknown, FormState> {
     this.stabMatrix = React.createRef();
     this.stock = React.createRef();
     this.file = React.createRef();
+    this.submit = React.createRef();
   }
+
+  componentDidMount() {
+    if (this.submit.current) this.submit.current.disabled = true;
+  }
+
+  enableSubmitButton = () => {
+    if (this.submit.current) this.submit.current.disabled = false;
+  };
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     let stab = '';
@@ -57,6 +68,27 @@ export default class FormPage extends React.Component<unknown, FormState> {
     let name = String(this.name.current?.value) || 'Camera';
     if (this.date.current?.value) name += ` made on ${this.date.current?.value}`;
 
+    const fileTypes = ['image/jpeg', 'image/jpeg', 'image/png'];
+    const files = this.file.current?.files;
+    let img = 'no-image' as File | string;
+    console.log(this.file.current?.files);
+
+    if (files) {
+      img = files[0];
+      if (validFileType(img, fileTypes)) {
+        img = window.URL.createObjectURL(img);
+      } else {
+        if (this.submit.current) this.submit.current.disabled = true;
+        this.file.current?.setCustomValidity(
+          'Unsupported file format. Please, upload jpg or png image.'
+        );
+        this.file.current?.reportValidity();
+        this.file.current?.setCustomValidity('');
+        event.preventDefault();
+        return;
+      }
+    }
+
     const addCamera: CameraData = {
       num: String(userCameras.length + 1),
       name: name || 'Camera',
@@ -65,9 +97,7 @@ export default class FormPage extends React.Component<unknown, FormState> {
       manufacturer: 'Unknown',
       type: this.type.current?.value || 'DSLR',
       stabilization: stab,
-      img: this.file.current?.files
-        ? window.URL.createObjectURL(this.file.current?.files[0]) || 'no-image'
-        : 'no-image',
+      img: img as string,
       stock: this.stock.current?.checked || true,
     };
     userCameras.push(addCamera);
@@ -94,6 +124,7 @@ export default class FormPage extends React.Component<unknown, FormState> {
                   name="name"
                   placeholder="Manufacturer and model"
                   ref={this.name}
+                  onChange={this.enableSubmitButton}
                 />
               </label>
               <label className="form-input">
@@ -171,9 +202,16 @@ export default class FormPage extends React.Component<unknown, FormState> {
               </div>
               <label className="form-input">
                 Picture:
-                <input type="file" ref={this.file} />
+                <input
+                  type="file"
+                  accept=".jpg, .jpeg, .png"
+                  ref={this.file}
+                  onChange={this.enableSubmitButton}
+                />
               </label>
-              <input type="submit" className="button_small" value="Submit" />
+              <button type="submit" className="button_small" ref={this.submit}>
+                Submit
+              </button>
             </form>
             <Link to="/">
               <button className="button_big">Return to main</button>

@@ -189,4 +189,17 @@
   &:active {
     background: $accent-color;
   }
+
+  &:disabled {
+    color: $text-secondary-color;
+    cursor: auto;
+
+    &:hover {
+      border: 2px solid $text-secondary-color;
+    }
+
+    &:active {
+      background: $accent-dark-color;
+    }
+  }
 }
