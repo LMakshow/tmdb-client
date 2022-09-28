@@ -8,7 +8,6 @@ interface SearchProps {
 
 export default class Search extends React.Component<SearchProps, unknown> {
   handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e === null) return;
     this.props.onQueryChange(e.target.value);
   };
 

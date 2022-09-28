@@ -1,6 +1,7 @@
 import React from 'react';
 import Search from './Search';
 import ShopCard from './ShopCard';
+import { CameraData } from 'assets/data';
 import data from 'assets/data';
 
 interface State {
@@ -36,14 +37,18 @@ export default class Main extends React.Component<Record<string, unknown>, State
     window.removeEventListener('beforeunload', this.componentSaveStorage);
   }
 
-  render() {
+  generateCards = (data: CameraData[]) => {
     const cards = [] as JSX.Element[];
     data.forEach((item) => {
       const name = item.name.toLowerCase();
       if (name.indexOf(this.state.searchQuery.toLowerCase()) !== -1)
         cards.push(<ShopCard key={item.num} {...item} />);
     });
+    return cards;
+  };
 
+  render() {
+    const cards = this.generateCards(data);
     return (
       <div>
         <Search onQueryChange={this.searchQueryChange} searchQuery={this.state.searchQuery} />
