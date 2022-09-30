@@ -6,7 +6,7 @@ import Main from 'components/Main';
 function App() {
   return (
     <div className="root">
-      <Header pageName="Main page: Shop Stock Cameras" />
+      <Header pageName="The Movie Database" />
       <Main />
       <Footer />
     </div>

@@ -3,6 +3,7 @@ import Search from './Search';
 import ShopCard from './ShopCard';
 import { CameraData } from 'assets/data';
 import data from 'assets/data';
+import Heading from './Heading';
 
 interface State {
   searchQuery: string;
@@ -51,6 +52,7 @@ export default class Main extends React.Component<Record<string, unknown>, State
     const cards = this.generateCards(data);
     return (
       <div>
+        <Heading text="Browse the most popular movies daily or search for any movies from TMDB" />
         <Search onQueryChange={this.searchQueryChange} searchQuery={this.state.searchQuery} />
         <div className="shop-page">
           {cards.length === 0 ? 'No matches with the search query.' : cards}

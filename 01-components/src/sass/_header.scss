@@ -31,6 +31,14 @@
   }
 }
 
+.heading {
+  background-color: $primary-color;
+  font-family: $font-header;
+  position: relative;
+  padding: 15px 15px;
+  justify-content: space-around;
+}
+
 .navigation {
   display: flex;
   align-items: center;
