@@ -1,4 +1,4 @@
-import { CameraData } from 'assets/data';
+import { CameraData } from 'assets/cameraData';
 import CameraForm from 'components/Form';
 import ShopCard from 'components/ShopCard';
 import React from 'react';

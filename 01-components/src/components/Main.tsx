@@ -1,19 +1,21 @@
 import React from 'react';
 import Search from './Search';
-import ShopCard from './ShopCard';
-import { CameraData } from 'assets/data';
-import data from 'assets/data';
+import MovieCard from './MovieCard';
 import Heading from './Heading';
+import { MovieData } from 'utils/TMDBinterfaces';
+import { moviesPopularUrl, searchMoviesUrl } from 'utils/fetchUtils';
 
 interface State {
   searchQuery: string;
+  data: MovieData[];
 }
 
-export default class Main extends React.Component<Record<string, unknown>, State> {
-  constructor(props: Record<string, unknown>) {
+export default class Main extends React.Component<unknown, State> {
+  constructor(props: unknown) {
     super(props);
     this.state = {
       searchQuery: (localStorage.getItem('searchQuery') as string) || '',
+      data: [],
     };
   }
 
@@ -27,10 +29,26 @@ export default class Main extends React.Component<Record<string, unknown>, State
     localStorage.setItem('searchQuery', this.state.searchQuery);
   };
 
-  componentDidMount() {
-    if (localStorage.getItem('searchQuery'))
-      this.setState({ searchQuery: localStorage.getItem('searchQuery') as string });
-    window.addEventListener('beforeunload', this.componentSaveStorage);
+  async componentDidMount() {
+    try {
+      if (this.state.searchQuery) {
+        const query = this.state.searchQuery;
+        const response = await fetch(searchMoviesUrl(query));
+        const movies = (await response.json()).results;
+        this.setState({ data: movies });
+      }
+      if (!this.state.searchQuery) {
+        const response = await fetch(moviesPopularUrl());
+        const movies = (await response.json()).results;
+        this.setState({ data: movies });
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      if (localStorage.getItem('searchQuery'))
+        this.setState({ searchQuery: localStorage.getItem('searchQuery') as string });
+      window.addEventListener('beforeunload', this.componentSaveStorage);
+    }
   }
 
   componentWillUnmount() {
@@ -38,18 +56,18 @@ export default class Main extends React.Component<Record<string, unknown>, State
     window.removeEventListener('beforeunload', this.componentSaveStorage);
   }
 
-  generateCards = (data: CameraData[]) => {
+  generateCards = (data: MovieData[]) => {
     const cards = [] as JSX.Element[];
     data.forEach((item) => {
-      const name = item.name.toLowerCase();
-      if (name.indexOf(this.state.searchQuery.toLowerCase()) !== -1)
-        cards.push(<ShopCard key={item.num} {...item} />);
+      // const name = item.title.toLowerCase();
+      // if (name.indexOf(this.state.searchQuery.toLowerCase()) !== -1)
+      cards.push(<MovieCard key={item.id} {...item} />);
     });
     return cards;
   };
 
   render() {
-    const cards = this.generateCards(data);
+    const cards = this.generateCards(this.state.data);
     return (
       <div>
         <Heading text="Browse the most popular movies daily or search for any movies from TMDB" />

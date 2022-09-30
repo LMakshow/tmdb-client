@@ -57,9 +57,19 @@
   }
 }
 
+.movie__card {
+  cursor: pointer;
+}
+
 .shop-card__image {
   height: 220px;
   width: auto;
+  align-self: center;
+}
+
+.movie-card__image {
+  height: 317px;
+  max-width: 220px;
   align-self: center;
 }
 
@@ -69,6 +79,24 @@
   height: 52px;
   font-size: 21px;
   overflow: hidden;
+
+  @media screen and (max-width: 630px) {
+    height: auto;
+  }
+
+  @media screen and (max-width: 430px) {
+    font-size: 18px;
+    line-height: 20px;
+  }
+}
+
+.movie-card__name {
+  font-weight: 700;
+  line-height: 26px;
+  height: 52px;
+  font-size: 21px;
+  overflow: hidden;
+  text-align: center;
 
   @media screen and (max-width: 630px) {
     height: auto;

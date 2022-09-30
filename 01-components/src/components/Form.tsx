@@ -1,4 +1,4 @@
-import { CameraData } from 'assets/data';
+import { CameraData } from 'assets/cameraData';
 import React from 'react';
 import validFileType from 'utils/fileUtils';
 
