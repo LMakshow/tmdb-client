@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface SearchProps {
   onQueryChange: (query: string) => void;
+  onSearchSubmit: () => void;
   searchQuery: string;
 }
 
@@ -11,13 +12,18 @@ export default class Search extends React.Component<SearchProps, unknown> {
     this.props.onQueryChange(e.target.value);
   };
 
+  handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    this.props.onSearchSubmit();
+    e.preventDefault();
+  };
+
   render() {
     return (
       <div className="search-container">
         <Link to="/form">
           <button className="button_big">Browse used cameras</button>
         </Link>
-        <div className="search-field">
+        <form className="search-field" onSubmit={this.handleSearchSubmit}>
           <input
             className="search-box"
             type="search"
@@ -27,8 +33,8 @@ export default class Search extends React.Component<SearchProps, unknown> {
             value={this.props.searchQuery}
             onChange={this.handleQueryChange}
           />
-          <div className="search-clear"></div>
-        </div>
+          <button type="submit" className="search-submit"></button>
+        </form>
       </div>
     );
   }

@@ -5,12 +5,19 @@ import { render, screen } from '@testing-library/react';
 import Search from 'components/Search';
 
 const onQueryChange = jest.fn;
+const onSearchSubmit = jest.fn;
 const searchQuery = 'test';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Search onQueryChange={onQueryChange} searchQuery={searchQuery} />,
+    element: (
+      <Search
+        onQueryChange={onQueryChange}
+        onSearchSubmit={onSearchSubmit}
+        searchQuery={searchQuery}
+      />
+    ),
   },
 ]);
 

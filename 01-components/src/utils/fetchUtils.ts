@@ -8,3 +8,7 @@ export const moviesPopularUrl = (page = 1) => {
 export const searchMoviesUrl = (query: string, page = 1) => {
   return `${SERVER}/search/movie?api_key=${API_KEY}&query=${query}&page=${page}`;
 };
+
+export const movieDetailsUrl = (id: number) => {
+  return `${SERVER}/movie/${id}?api_key=${API_KEY}&append_to_response=videos`;
+};

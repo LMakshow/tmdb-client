@@ -1,16 +1,24 @@
 import React from 'react';
 import { MovieData } from 'utils/TMDBinterfaces';
 
-export default class MovieCard extends React.Component<MovieData, { cart: boolean }> {
-  constructor(props: MovieData) {
+interface MovieCardProps extends MovieData {
+  onClick: (id: number) => Promise<void>;
+}
+
+export default class MovieCard extends React.Component<MovieCardProps, { cart: boolean }> {
+  constructor(props: MovieCardProps) {
     super(props);
     this.state = { cart: false };
   }
 
+  handleClick = () => {
+    this.props.onClick(this.props.id);
+  };
+
   render() {
     return (
-      <div className="shop-card-template">
-        <div className="shop-card movie__card">
+      <div className="movie-card-template" onClick={this.handleClick}>
+        <div className="shop-card movie-card">
           <img
             className="movie-card__image"
             src={
@@ -22,14 +30,14 @@ export default class MovieCard extends React.Component<MovieData, { cart: boolea
           />
           <h2 className="movie-card__name">{this.props.title}</h2>
 
-          <div className="shop-card__price-mpix">
-            <div className="shop-card__block">
-              <h3 className="shop-card__price text-big">{this.props.vote_count}</h3>
+          <div className="movie-card__ratings">
+            <div className="movie-card__block">
+              <h3 className="movie-card__votes text-big">{this.props.vote_count}</h3>
               <span className="text-aux">votes</span>
             </div>
-            <div className="shop-card__block">
-              <span className="text-aux">❤</span>
-              <p className="shop-card__mpix text-big">{this.props.vote_average}</p>
+            <div className="movie-card__block">
+              <span className="text-aux color-accent">❤</span>
+              <p className="text-big">{this.props.vote_average}</p>
             </div>
           </div>
         </div>
