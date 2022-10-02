@@ -3,14 +3,23 @@ import Search from './Search';
 import MovieCard from './MovieCard';
 import Heading from './Heading';
 import { MovieData, MovieDetails } from 'utils/TMDBinterfaces';
-import { movieDetailsUrl, moviesPopularUrl, searchMoviesUrl } from 'utils/fetchUtils';
+import {
+  getErrorMessage,
+  movieDetailsUrl,
+  moviesPopularUrl,
+  searchMoviesUrl,
+} from 'utils/fetchUtils';
 import ModalCard from './ModalCard';
+import { NetworkError, Preloader } from './Network';
 
 interface MainState {
   searchQuery: string;
   data: MovieData[];
   dataOnClick: MovieDetails | null;
   showModal: boolean;
+  loading: boolean;
+  movieListError: boolean | string;
+  modalCardError: boolean | string;
 }
 
 export default class Main extends React.Component<unknown, MainState> {
@@ -21,44 +30,55 @@ export default class Main extends React.Component<unknown, MainState> {
       data: [],
       dataOnClick: null,
       showModal: false,
+      loading: false,
+      movieListError: false,
+      modalCardError: false,
     };
   }
 
   searchFetchRequest = async (query: string) => {
     try {
+      this.setState({ loading: true, movieListError: false });
       if (query) {
         const response = await fetch(searchMoviesUrl(query));
+        if (!response.ok) throw Error('Error fetching the search movies data');
         const movies = (await response.json()).results;
         this.setState({ data: movies });
       }
       if (!query) {
         const response = await fetch(moviesPopularUrl());
+        if (!response.ok) throw Error('Error fetching the popular movies data');
         const movies = (await response.json()).results;
         this.setState({ data: movies });
       }
     } catch (err) {
-      console.log(err);
+      const message = getErrorMessage(err);
+      console.log(getErrorMessage(err));
+      this.setState({ movieListError: message });
+    } finally {
+      this.setState({ loading: false });
     }
   };
 
   handleCardClick = async (id: number) => {
     try {
       if (id) {
-        this.setState({ dataOnClick: null });
+        this.setState({ dataOnClick: null, modalCardError: false });
         this.toggleModal();
         const response = await fetch(movieDetailsUrl(id));
+        if (!response.ok) throw Error('Error fetching the movie details data');
         const details = await response.json();
         this.setState({ dataOnClick: details });
       }
     } catch (err) {
-      console.log(err);
+      const message = getErrorMessage(err);
+      console.log(getErrorMessage(message));
+      this.setState({ modalCardError: message });
     }
   };
 
   searchQueryChange = (query: string) => {
-    this.setState({
-      searchQuery: query,
-    });
+    this.setState({ searchQuery: query });
   };
 
   searchSubmit = () => {
@@ -106,9 +126,16 @@ export default class Main extends React.Component<unknown, MainState> {
           searchQuery={this.state.searchQuery}
         />
         <div className="movie-page">
-          {cards.length === 0 ? 'No matches with the search query.' : cards}
+          {this.state.loading && <Preloader />}
+          {this.state.movieListError && (
+            <NetworkError message={this.state.movieListError as string} />
+          )}
+          {!this.state.loading && !this.state.movieListError && cards.length === 0
+            ? 'No matches with the search query.'
+            : cards}
         </div>
         <ModalCard
+          error={this.state.modalCardError}
           data={this.state.dataOnClick}
           show={this.state.showModal}
           toggleModal={this.toggleModal}

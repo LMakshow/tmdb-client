@@ -62,3 +62,17 @@ a {
   flex-direction: column;
   min-height: 100vh;
 }
+
+.about-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 10px;
+  background: $primary-color;
+  max-width: 800px;
+  width: 95%;
+}

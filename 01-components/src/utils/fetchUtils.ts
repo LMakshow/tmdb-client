@@ -12,3 +12,8 @@ export const searchMoviesUrl = (query: string, page = 1) => {
 export const movieDetailsUrl = (id: number) => {
   return `${SERVER}/movie/${id}?api_key=${API_KEY}&append_to_response=videos`;
 };
+
+export const getErrorMessage = (error: unknown) => {
+  if (error instanceof Error) return error.message;
+  return String(error);
+};

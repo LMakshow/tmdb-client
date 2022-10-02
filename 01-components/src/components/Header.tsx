@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logoMain from '../assets/icons/TMDB.svg';
+import logoMain from '../assets/svg/TMDB.svg';
 
 export default class Header extends React.Component<{ pageName: string }, unknown> {
   render() {

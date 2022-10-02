@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 interface SearchProps {
   onQueryChange: (query: string) => void;
@@ -20,9 +20,9 @@ export default class Search extends React.Component<SearchProps, unknown> {
   render() {
     return (
       <div className="search-container">
-        <Link to="/form">
+        {/* <Link to="/form">
           <button className="button_big">Browse used cameras</button>
-        </Link>
+        </Link> */}
         <form className="search-field" onSubmit={this.handleSearchSubmit}>
           <input
             className="search-box"

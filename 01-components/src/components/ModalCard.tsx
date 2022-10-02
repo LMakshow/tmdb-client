@@ -1,11 +1,12 @@
 import React from 'react';
 import { MovieDetails } from 'utils/TMDBinterfaces';
 import closeBtn from '../assets/svg/close.svg';
-import { Preloader } from './Preloader';
+import { NetworkError, Preloader } from './Network';
 
 interface ModalCardProps {
   data: MovieDetails | null;
   show: boolean;
+  error: boolean | string;
   toggleModal: () => void;
 }
 
@@ -57,8 +58,17 @@ export default class ModalCard extends React.Component<ModalCardProps, unknown> 
     );
   };
 
+  errorCard = (message: string) => {
+    return (
+      <div className="modal-overlay" ref={this.modalRef} onClick={this.handleClickOutside}>
+        <NetworkError message={message} />
+      </div>
+    );
+  };
+
   render() {
     if (!this.props.show) return null;
+    if (this.props.error) return this.errorCard(this.props.error as string);
     if (!this.props.data) return this.loadingCard();
     return (
       <div className="modal-overlay" ref={this.modalRef} onClick={this.handleClickOutside}>
