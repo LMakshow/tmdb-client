@@ -105,7 +105,7 @@ export default class Main extends React.Component<unknown, MainState> {
           onSearchSubmit={this.searchSubmit}
           searchQuery={this.state.searchQuery}
         />
-        <div className="shop-page">
+        <div className="movie-page">
           {cards.length === 0 ? 'No matches with the search query.' : cards}
         </div>
         <ModalCard

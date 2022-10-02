@@ -7,21 +7,19 @@ export default class ShopCard extends React.Component<CameraData, { cart: boolea
     this.state = { cart: false };
   }
 
-  render() {
-    let stab = this.props.stabilization;
-    if (Array.isArray(stab)) stab = stab.join(', ');
-
-    let src = '';
+  generateSrc = () => {
     if (this.props.img.substring(0, 5) === 'blob:') {
-      src = this.props.img;
+      return this.props.img;
     } else {
-      src = `${process.env.PUBLIC_URL}/cameras/${this.props.img}.jpg`;
+      return `${process.env.PUBLIC_URL}/cameras/${this.props.img}.jpg`;
     }
+  };
 
+  render() {
     return (
       <div className="shop-card-template">
         <div className="shop-card">
-          <img className="shop-card__image" src={src} alt="Photo" />
+          <img className="shop-card__image" src={this.generateSrc()} alt="Photo" />
           <h2 className="shop-card__name">{this.props.name}</h2>
 
           <div className="shop-card__price-mpix">
@@ -42,7 +40,7 @@ export default class ShopCard extends React.Component<CameraData, { cart: boolea
             </div>
             <div className="shop-card__block">
               <p className="text-aux">stabilization:</p>
-              <span className="shop-card__stab">{stab}</span>
+              <span className="shop-card__stab">{this.props.stabilization}</span>
             </div>
           </div>
 

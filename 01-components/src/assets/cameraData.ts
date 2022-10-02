@@ -5,7 +5,7 @@ export type CameraData = {
   price: string;
   manufacturer: string;
   type: string;
-  stabilization: string | string[];
+  stabilization: string;
   img: string;
   stock: boolean;
 };
@@ -31,7 +31,7 @@ const data: CameraData[] = [
     price: '112999',
     manufacturer: 'Canon',
     type: 'DSLR',
-    stabilization: ['optical', 'matrix'],
+    stabilization: 'optical, matrix',
     img: 'canon_eos_5d_mark_iv_24-105l_is_ii_usm_kit_1483c030',
     stock: true,
   },

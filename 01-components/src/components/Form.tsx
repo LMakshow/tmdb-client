@@ -1,6 +1,7 @@
 import { CameraData } from 'assets/cameraData';
 import React from 'react';
 import validFileType from 'utils/fileUtils';
+import { stabStringFromCheckboxes } from 'utils/formUtils';
 
 interface FormPageProps {
   addCamera: (cameraData: CameraData) => void;
@@ -10,7 +11,7 @@ interface FormPageState {
   success: boolean;
 }
 
-export default class CameraForm extends React.Component<FormPageProps, FormPageState> {
+interface FormRefs {
   name: React.RefObject<HTMLTextAreaElement>;
   price: React.RefObject<HTMLInputElement>;
   mpix: React.RefObject<HTMLInputElement>;
@@ -22,60 +23,51 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
   stock: React.RefObject<HTMLInputElement>;
   file: React.RefObject<HTMLInputElement>;
   submit: React.RefObject<HTMLButtonElement>;
+}
+
+export default class CameraForm extends React.Component<FormPageProps, FormPageState> {
+  ref: FormRefs;
 
   constructor(props: FormPageProps) {
     super(props);
     this.state = {
       success: false,
     };
-    this.name = React.createRef();
-    this.price = React.createRef();
-    this.mpix = React.createRef();
-    this.date = React.createRef();
-    this.type = React.createRef();
-    this.stabNone = React.createRef();
-    this.stabOptical = React.createRef();
-    this.stabMatrix = React.createRef();
-    this.stock = React.createRef();
-    this.file = React.createRef();
-    this.submit = React.createRef();
+    this.ref = {
+      name: React.createRef(),
+      price: React.createRef(),
+      mpix: React.createRef(),
+      date: React.createRef(),
+      type: React.createRef(),
+      stabNone: React.createRef(),
+      stabOptical: React.createRef(),
+      stabMatrix: React.createRef(),
+      stock: React.createRef(),
+      file: React.createRef(),
+      submit: React.createRef(),
+    };
   }
 
   componentDidMount() {
-    if (this.submit.current) this.submit.current.disabled = true;
+    this.ref.submit.current.disabled = true;
   }
 
   enableSubmitButton = () => {
-    if (this.submit.current) this.submit.current.disabled = false;
-  };
-
-  clearForm = () => {
-    if (this.name.current) this.name.current.value = '';
-    if (this.price.current) this.price.current.value = '0';
-    if (this.mpix.current) this.mpix.current.value = '0';
-    if (this.date.current) this.date.current.value = '';
-    if (this.type.current) this.type.current.value = 'dslr';
-    if (this.stabOptical.current) this.stabOptical.current.checked = false;
-    if (this.stabMatrix.current) this.stabMatrix.current.checked = false;
-    if (this.stock.current) this.stock.current.checked = true;
-    if (this.file.current) this.file.current.value = '';
-    if (this.submit.current) this.submit.current.disabled = true;
+    this.ref.submit.current.disabled = false;
   };
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    let stab = '';
-    if (this.stabOptical.current?.checked === true) stab = 'optical';
-    if (this.stabMatrix.current?.checked === true) stab = 'matrix';
-    if (this.stabOptical.current?.checked === true && this.stabMatrix.current?.checked === true)
-      stab = 'optical, matrix';
-    if (this.stabOptical.current?.checked === false && this.stabMatrix.current?.checked === false)
-      stab = 'none';
+    const refs = this.ref;
+    const stab = stabStringFromCheckboxes(
+      refs.stabOptical.current.checked,
+      refs.stabMatrix.current.checked
+    );
 
-    let name = String(this.name.current?.value) || 'Camera';
-    if (this.date.current?.value) name += ` made on ${this.date.current?.value}`;
+    let name = String(this.ref.name.current?.value) || 'Camera';
+    if (this.ref.date.current?.value) name += ` made on ${this.ref.date.current?.value}`;
 
     const fileTypes = ['image/jpeg', 'image/jpeg', 'image/png'];
-    const files = this.file.current?.files;
+    const files = this.ref.file.current?.files;
     let img = 'no-image' as File | string;
 
     if (files?.length) {
@@ -83,12 +75,12 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
       if (validFileType(img, fileTypes)) {
         img = window.URL.createObjectURL(img);
       } else {
-        if (this.submit.current) this.submit.current.disabled = true;
-        this.file.current?.setCustomValidity(
+        if (this.ref.submit.current) this.ref.submit.current.disabled = true;
+        this.ref.file.current?.setCustomValidity(
           'Unsupported file format. Please, upload jpg or png image.'
         );
-        this.file.current?.reportValidity();
-        this.file.current?.setCustomValidity('');
+        this.ref.file.current?.reportValidity();
+        this.ref.file.current?.setCustomValidity('');
         event.preventDefault();
         return;
       }
@@ -97,19 +89,21 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
     const addCamera: CameraData = {
       num: '0',
       name: name || 'Camera',
-      mpix: this.mpix.current?.value || '0',
-      price: this.price.current?.value || '0',
+      mpix: this.ref.mpix.current?.value || '0',
+      price: this.ref.price.current?.value || '0',
       manufacturer: 'Unknown',
-      type: this.type.current?.value || 'DSLR',
+      type: this.ref.type.current?.value || 'DSLR',
       stabilization: stab,
       img: img as string,
-      stock: this.stock.current?.checked || true,
+      stock: this.ref.stock.current?.checked || true,
     };
     this.props.addCamera(addCamera);
-    this.clearForm();
     this.setState({
       success: true,
     });
+
+    const form = event.target as HTMLFormElement;
+    form.reset();
     event.preventDefault();
     setTimeout(
       () =>
@@ -138,7 +132,7 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
             rows={2}
             name="name"
             placeholder="Manufacturer and model"
-            ref={this.name}
+            ref={this.ref.name}
             onChange={this.enableSubmitButton}
           />
         </label>
@@ -151,7 +145,7 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
             className="form-select"
             type="number"
             name="price"
-            ref={this.price}
+            ref={this.ref.price}
           />
           UAH
         </label>
@@ -164,18 +158,18 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
             className="form-select"
             type="number"
             name="mpix"
-            ref={this.mpix}
+            ref={this.ref.mpix}
           />
         </label>
 
         <label className="form-input">
           Manufacture date:
-          <input className="form-select" type="date" name="date" ref={this.date} />
+          <input className="form-select" type="date" name="date" ref={this.ref.date} />
         </label>
 
         <label className="form-input">
           Type:
-          <select className="form-select" name="type" ref={this.type}>
+          <select className="form-select" name="type" ref={this.ref.type}>
             <option value="dslr">DSLR</option>
             <option value="mirrorless">Mirrorless</option>
             <option value="compact">Compact</option>
@@ -191,7 +185,7 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
               type="checkbox"
               name="stabOptical"
               value="optical"
-              ref={this.stabOptical}
+              ref={this.ref.stabOptical}
             />
             Optical
           </label>
@@ -201,7 +195,7 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
               type="checkbox"
               name="stabMatrix"
               value="matrix"
-              ref={this.stabMatrix}
+              ref={this.ref.stabMatrix}
             />
             Matrix
           </label>
@@ -215,7 +209,7 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
             name="stock"
             value="on"
             defaultChecked={true}
-            ref={this.stock}
+            ref={this.ref.stock}
           />
           <label htmlFor="stock" className="form-stock__option">
             In stock?
@@ -227,12 +221,12 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
           <input
             type="file"
             accept=".jpg, .jpeg, .png"
-            ref={this.file}
+            ref={this.ref.file}
             onChange={this.enableSubmitButton}
           />
         </label>
 
-        <button type="submit" className="button_small" ref={this.submit}>
+        <button type="submit" className="button_small" ref={this.ref.submit}>
           Submit
         </button>
 
