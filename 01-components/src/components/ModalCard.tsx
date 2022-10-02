@@ -34,7 +34,7 @@ export default class ModalCard extends React.Component<ModalCardProps, unknown> 
 
   videosCards = () => {
     if (!this.props.data?.videos.results) return null;
-    const cards = this.props.data?.videos.results.map((item) => (
+    let cards = this.props.data?.videos.results.map((item) => (
       <a
         key={item.id}
         className="movie-card__genre"
@@ -47,6 +47,7 @@ export default class ModalCard extends React.Component<ModalCardProps, unknown> 
         <span className="text-sm">{item.type}</span>
       </a>
     ));
+    if (cards.length === 0) cards = [<div key="1">No videos yet. Come back later!</div>];
     return cards;
   };
 
