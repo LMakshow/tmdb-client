@@ -21,7 +21,7 @@ const router = createBrowserRouter([
 // });
 
 describe('Main', () => {
-  test('renders popular movies cards and render votes number', async () => {
+  test('renders popular movies cards and votes count (797)', async () => {
     render(<RouterProvider router={router} />);
 
     expect(screen.getByText(/Browse the most popular movies/)).toBeInTheDocument();
@@ -29,12 +29,22 @@ describe('Main', () => {
     expect(screen.getByText(/797/)).toBeInTheDocument();
   });
 
-  test('shows modal window after a click on a card and renders release date', async () => {
+  test('shows modal window after a click on a card and renders release date (2022-07-27)', async () => {
     render(<RouterProvider router={router} />);
 
     await waitFor(() => screen.getByText(/Orphan: First Kill/));
     userEvent.click(screen.getByText(/Orphan: First Kill/));
     await waitFor(() => screen.getByText(/There's always been something wrong with Esther/));
     expect(screen.getByText(/2022-07-27/)).toBeInTheDocument();
+  });
+
+  test('after submitting search for a movie, renders search results and average score (7.6)', async () => {
+    render(<RouterProvider router={router} />);
+
+    await waitFor(() => screen.getByText(/Orphan: First Kill/));
+    userEvent.click(screen.getByRole('searchbox'));
+    userEvent.type(screen.getByRole('searchbox'), 'Minions{Enter}');
+    await waitFor(() => screen.getByText(/Minions: The Rise of Gru/));
+    expect(screen.getByText(/7.6/)).toBeInTheDocument();
   });
 });
