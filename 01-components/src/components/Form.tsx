@@ -1,5 +1,5 @@
-import { CameraData } from 'assets/cameraData';
 import React from 'react';
+import { CameraData } from 'assets/cameraData';
 import validFileType from 'utils/fileUtils';
 import { stabStringFromCheckboxes } from 'utils/formUtils';
 
@@ -12,7 +12,7 @@ interface FormPageState {
 }
 
 interface FormRefs {
-  name: React.RefObject<HTMLTextAreaElement>;
+  name: React.RefObject<HTMLInputElement>;
   price: React.RefObject<HTMLInputElement>;
   mpix: React.RefObject<HTMLInputElement>;
   date: React.RefObject<HTMLInputElement>;
@@ -126,59 +126,59 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
       <form className="form-container" onSubmit={this.handleSubmit}>
         <label className="form-input">
           Name:
-          <textarea
-            required
-            className="form-textarea"
-            rows={2}
+          <input
+            className="form-select stretch"
+            type="text"
             name="name"
-            placeholder="Manufacturer and model"
             ref={this.ref.name}
             onChange={this.enableSubmitButton}
           />
         </label>
 
+        <label className="form-input column">
+          Description:
+          <textarea
+            required
+            className="form-textarea"
+            rows={2}
+            name="name"
+            placeholder="Description for a movie"
+            // ref={this.ref.name}
+          />
+        </label>
+
         <label className="form-input">
-          Price:
+          Your score:
           <input
             min={0}
-            defaultValue={0}
+            max={10}
+            defaultValue={10}
             className="form-select"
             type="number"
             name="price"
             ref={this.ref.price}
           />
-          UAH
+          / 10
         </label>
 
         <label className="form-input">
-          Mpix:
-          <input
-            min={0}
-            defaultValue={0}
-            className="form-select"
-            type="number"
-            name="mpix"
-            ref={this.ref.mpix}
-          />
-        </label>
-
-        <label className="form-input">
-          Manufacture date:
+          Release date:
           <input className="form-select" type="date" name="date" ref={this.ref.date} />
         </label>
 
         <label className="form-input">
-          Type:
+          Status:
           <select className="form-select" name="type" ref={this.ref.type}>
-            <option value="dslr">DSLR</option>
-            <option value="mirrorless">Mirrorless</option>
-            <option value="compact">Compact</option>
-            <option value="ultrazoom">Ultrazoom</option>
+            <option value="Released">Released</option>
+            <option value="Rumored">Rumored</option>
+            <option value="Planned">Planned</option>
+            <option value="In Production">In Production</option>
+            <option value="Cancelled">Cancelled</option>
           </select>
         </label>
 
         <div className="form-stab__list form-stab__text">
-          Stabilization:
+          Genre:
           <label className="form-stab__option">
             <input
               className="form-checkbox"
@@ -187,7 +187,7 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
               value="optical"
               ref={this.ref.stabOptical}
             />
-            Optical
+            Action
           </label>
           <label className="form-stab__option">
             <input
@@ -197,7 +197,37 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
               value="matrix"
               ref={this.ref.stabMatrix}
             />
-            Matrix
+            Comedy
+          </label>
+          <label className="form-stab__option">
+            <input
+              className="form-checkbox"
+              type="checkbox"
+              name="stabMatrix"
+              value="matrix"
+              ref={this.ref.stabMatrix}
+            />
+            Drama
+          </label>
+          <label className="form-stab__option">
+            <input
+              className="form-checkbox"
+              type="checkbox"
+              name="stabMatrix"
+              value="matrix"
+              ref={this.ref.stabMatrix}
+            />
+            Fantasy
+          </label>
+          <label className="form-stab__option">
+            <input
+              className="form-checkbox"
+              type="checkbox"
+              name="stabMatrix"
+              value="matrix"
+              ref={this.ref.stabMatrix}
+            />
+            Other
           </label>
         </div>
 
@@ -212,7 +242,7 @@ export default class CameraForm extends React.Component<FormPageProps, FormPageS
             ref={this.ref.stock}
           />
           <label htmlFor="stock" className="form-stock__option">
-            In stock?
+            Viewed?
           </label>
         </div>
 
