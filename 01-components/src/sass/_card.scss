@@ -21,7 +21,7 @@
   padding: 15px;
   gap: 10px;
   width: 250px;
-  height: 450px;
+  min-height: 450px;
   justify-content: flex-start;
   background: $primary-color;
   border-radius: 10px;
@@ -57,8 +57,14 @@
   align-self: center;
 }
 
-.movie-card__image {
+.movie-card__image-container {
   height: 317px;
+  display: flex;
+  align-items: center;
+}
+
+.movie-card__image {
+  max-height: 317px;
   max-width: 220px;
   align-self: center;
 }

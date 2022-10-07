@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { MovieDetails } from 'utils/TMDBinterfaces';
+import { Genres, MovieDetails, Videos } from 'utils/TMDBinterfaces';
 import closeBtn from '../assets/svg/close.svg';
 import { NetworkError, Preloader } from './Network';
 
@@ -10,40 +10,40 @@ interface ModalCardProps {
   toggleModal: () => void;
 }
 
+const genresCards = (genres: Genres[]) => {
+  if (!genres) return null;
+  const cards = genres.map((item) => (
+    <div key={item.id} className="movie-card__genre">
+      {item.name}
+    </div>
+  ));
+  return cards;
+};
+
+const videosCards = (videos: Videos) => {
+  if (!videos.results) return null;
+  let cards = videos.results.map((item) => (
+    <a
+      key={item.id}
+      className="movie-card__genre"
+      href={`https://www.youtube.com/watch?v=${item.key}`}
+      target="_blank"
+      rel="noreferrer"
+    >
+      <span className="color-accent">▶</span>
+      <span>{item.name}</span>
+      <span className="text-sm">{item.type}</span>
+    </a>
+  ));
+  if (cards.length === 0) cards = [<div key="1">No videos yet. Come back later!</div>];
+  return cards;
+};
+
 export default function ModalCard(props: ModalCardProps) {
   const modalRef = useRef(null);
 
   const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
     if (modalRef.current === e.target) props.toggleModal();
-  };
-
-  const genresCards = () => {
-    if (!props.data?.genres) return null;
-    const cards = props.data?.genres.map((item) => (
-      <div key={item.id} className="movie-card__genre">
-        {item.name}
-      </div>
-    ));
-    return cards;
-  };
-
-  const videosCards = () => {
-    if (!props.data?.videos.results) return null;
-    let cards = props.data?.videos.results.map((item) => (
-      <a
-        key={item.id}
-        className="movie-card__genre"
-        href={`https://www.youtube.com/watch?v=${item.key}`}
-        target="_blank"
-        rel="noreferrer"
-      >
-        <span className="color-accent">▶</span>
-        <span>{item.name}</span>
-        <span className="text-sm">{item.type}</span>
-      </a>
-    ));
-    if (cards.length === 0) cards = [<div key="1">No videos yet. Come back later!</div>];
-    return cards;
   };
 
   const loadingCard = () => {
@@ -112,10 +112,10 @@ export default function ModalCard(props: ModalCardProps) {
           </div>
           <div className="movie-card__block">
             <span className="text-med">Genres:</span>
-            {genresCards()}
+            {genresCards(props.data?.genres)}
           </div>
           <p className="text-med">Watch Videos:</p>
-          <div className="movie-card__block scroll-y">{videosCards()}</div>
+          <div className="movie-card__block scroll-y">{videosCards(props.data?.videos)}</div>
         </div>
       </div>
     </div>

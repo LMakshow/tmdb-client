@@ -13,15 +13,17 @@ export default function MovieCard(props: MovieCardProps) {
   return (
     <div className="movie-card-template" onClick={handleClick}>
       <div className="shop-card movie-card">
-        <img
-          className="movie-card__image"
-          src={
-            props.poster_path === null
-              ? `${process.env.PUBLIC_URL}/cameras/no-image.jpg`
-              : `https://image.tmdb.org/t/p/w500${props.poster_path}`
-          }
-          alt="Photo"
-        />
+        <div className="movie-card__image-container">
+          <img
+            className="movie-card__image"
+            src={
+              props.poster_path === null
+                ? `${process.env.PUBLIC_URL}/cameras/no-image.jpg`
+                : `https://image.tmdb.org/t/p/w500${props.poster_path}`
+            }
+            alt="Photo"
+          />
+        </div>
         <h2 className="movie-card__name">{props.title}</h2>
 
         <div className="movie-card__ratings">

@@ -7,7 +7,7 @@ import Header from '../components/Header';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Header pageName="Main" />,
+    element: <Header pageName="The Movie Database" />,
   },
 ]);
 
@@ -15,8 +15,8 @@ describe('Header', () => {
   test('renders Header component', () => {
     render(<RouterProvider router={router} />);
 
-    expect(screen.getByText('Current page: Main')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Главная PhotoShop/ })).toBeInTheDocument();
+    expect(screen.getByText('The Movie Database')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Главная TMDB/ })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /About us/ })).toBeInTheDocument();
   });
 });

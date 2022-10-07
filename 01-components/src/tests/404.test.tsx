@@ -15,7 +15,7 @@ describe('AboutUs', () => {
   test('renders AboutUs component', () => {
     render(<RouterProvider router={router} />);
 
-    expect(screen.getByText('404')).toBeInTheDocument();
+    expect(screen.getAllByText('404')[0]).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Return to the main/ })).toBeInTheDocument();
   });
 });

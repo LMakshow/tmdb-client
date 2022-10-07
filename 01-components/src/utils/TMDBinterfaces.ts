@@ -15,15 +15,32 @@ export interface MovieData {
   vote_average: number;
 }
 
+export interface Genres {
+  id: number;
+  name: string;
+}
+
+export interface Videos {
+  results: {
+    iso_639_1: string;
+    iso_3166_1: string;
+    name: string;
+    key: string;
+    site: string;
+    size: number;
+    type: string;
+    official: true;
+    published_at: string;
+    id: string;
+  }[];
+}
+
 export interface MovieDetails {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: Record<string, unknown>;
   budget: 0;
-  genres: {
-    id: number;
-    name: string;
-  }[];
+  genres: Genres[];
   homepage: string;
   id: number;
   imdb_id: string;
@@ -56,20 +73,7 @@ export interface MovieDetails {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  videos: {
-    results: {
-      iso_639_1: string;
-      iso_3166_1: string;
-      name: string;
-      key: string;
-      site: string;
-      size: number;
-      type: string;
-      official: true;
-      published_at: string;
-      id: string;
-    }[];
-  };
+  videos: Videos;
 }
 
 export interface MovieResponse {

@@ -1,21 +1,20 @@
-import { CameraData } from 'assets/cameraData';
-import CameraForm from 'components/Form';
-import ShopCard from 'components/ShopCard';
+import RequestForm from 'components/Form';
+import RequestCard, { MovieReqData } from 'components/MovieReqCard';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function FormPage() {
-  const [userCameraData, setUserCameraData] = useState([] as CameraData[]);
+  const [movieReqData, setMovieReqData] = useState([] as MovieReqData[]);
 
-  const addCamera = (cameraData: CameraData) => {
+  const addRequest = (cameraData: MovieReqData) => {
     const newCameraData = cameraData;
-    newCameraData.num = String(userCameraData.length + 1);
-    setUserCameraData([...userCameraData, newCameraData]);
+    newCameraData.num = movieReqData.length + 1;
+    setMovieReqData([...movieReqData, newCameraData]);
   };
 
-  const cards = userCameraData.map((item) => <ShopCard key={item.num} {...item} />);
+  const cards = movieReqData.map((item) => <RequestCard key={item.num} {...item} />);
 
   return (
     <div className="root">
@@ -23,7 +22,7 @@ export default function FormPage() {
       <div className="used-cameras-container">
         <div className="used-cameras-left">
           <h2 className="used-cameras-heading">Add your request for a movie</h2>
-          <CameraForm addCamera={addCamera} />
+          <RequestForm movieReq={addRequest} />
           <Link to="/">
             <button className="button_big">Return to main</button>
           </Link>

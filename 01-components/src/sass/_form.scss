@@ -42,20 +42,20 @@
 }
 
 .used-cameras-heading {
- text-align: center;
+  text-align: center;
 }
 
 .form-container {
-    display: flex;
-    flex-direction: column;
-    width: 350px;
-    padding: 15px;
-    gap: 15px;
-    justify-content: space-around;
-    background: $primary-color;
-    border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px, rgba(0, 0, 0, 0.09) 0px 2px 5px, rgba(0, 0, 0, 0.07) 0px 0px 2px 0.00144px;
-    transition: all .4s ease;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  padding: 15px;
+  gap: 15px;
+  justify-content: space-around;
+  background: $primary-color;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px, rgba(0, 0, 0, 0.09) 0px 2px 5px, rgba(0, 0, 0, 0.07) 0px 0px 2px 0.00144px;
+  transition: all .4s ease;
 }
 
 .form-checkbox {
@@ -118,7 +118,7 @@
   @media screen and (max-width: 939px) {
     align-items: flex-start;
     gap: 10px;
-    
+
   }
 
   @media screen and (max-width: 767px) {
@@ -218,4 +218,15 @@
 
 .stretch {
   width: 100%;
+}
+
+.form-alert {
+  margin-top: -12px;
+  text-align: center;
+  color: $accent-color;
+
+  &::before {
+    display: inline;
+    content: "⚠ ";
+  }
 }
