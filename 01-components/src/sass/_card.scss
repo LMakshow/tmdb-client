@@ -91,17 +91,12 @@
   text-align: center;
 }
 
-// .shop-card__price-mpix,
-// .movie-card__ratings {
-//   display: flex;
-// }
-
 .shop-card__block,
 .movie-card__block {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
-  gap: 5px;
+  gap: 4px;
 
   @media screen and (max-width: 630px) {
     column-gap: 5px;
