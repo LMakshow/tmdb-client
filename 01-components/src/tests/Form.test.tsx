@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import RequestForm from 'components/Form';
 import userEvent from '@testing-library/user-event';
 
@@ -20,17 +20,23 @@ describe('Form', () => {
 
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeDisabled();
-    await userEvent.type(screen.getAllByRole('textbox')[0], 'New Movie');
-    expect(screen.findByRole('button')).not.toBeDisabled();
+    await act(async () => {
+      userEvent.type(screen.getAllByRole('textbox')[0], 'New Movie');
+    });
+    expect(screen.getByRole('button')).not.toBeDisabled();
   });
 
-  test('form should submit correctly and reset after submitting', () => {
+  test('form should submit correctly and reset after submitting', async () => {
     const addRequest = jest.fn;
     render(<RequestForm movieReq={addRequest} />);
 
-    userEvent.type(screen.getAllByRole('textbox')[0], 'New Movie');
+    await act(async () => {
+      userEvent.type(screen.getAllByRole('textbox')[0], 'New Movie');
+    });
     expect(screen.getByDisplayValue('New Movie')).toBeInTheDocument();
-    userEvent.click(screen.getByRole('button'));
+    await act(async () => {
+      userEvent.click(screen.getByRole('button'));
+    });
     expect(screen.queryByDisplayValue('New Movie')).not.toBeInTheDocument();
   });
 

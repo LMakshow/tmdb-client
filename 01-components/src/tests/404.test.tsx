@@ -11,8 +11,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-describe('AboutUs', () => {
-  test('renders AboutUs component', () => {
+describe('Testing 404 page', () => {
+  test('renders 404 component', () => {
     render(<RouterProvider router={router} />);
 
     expect(screen.getAllByText('404')[0]).toBeInTheDocument();

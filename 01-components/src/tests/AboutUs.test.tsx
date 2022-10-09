@@ -11,7 +11,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-describe('AboutUs', () => {
+describe('Testing AboutUs page', () => {
   test('renders AboutUs component', () => {
     render(<RouterProvider router={router} />);
 
