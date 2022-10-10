@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Search from './Search';
 import MovieCard from './MovieCard';
 import Heading from './Heading';
@@ -11,10 +11,11 @@ import {
 } from 'utils/fetchUtils';
 import ModalCard from './ModalCard';
 import { NetworkError, Preloader } from './Network';
+import { UserContext } from './UserContext';
 
 export default function Main() {
+  const { renderData, setRenderData } = useContext(UserContext);
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQuery') || '');
-  const [renderData, setRenderData] = useState([] as MovieData[]);
   const [dataOnClick, setDataOnClick] = useState<MovieDetails | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -73,7 +74,7 @@ export default function Main() {
   const toggleModal = () => setShowModal(!showModal);
 
   useEffect(() => {
-    searchFetchRequest(searchQuery);
+    if (renderData.length === 0) searchFetchRequest(searchQuery);
     // Need to update only once after load
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
