@@ -20,7 +20,7 @@ export default function AboutUs() {
           The webpage made by <a href="https://github.com/LMakshow">Maksym Lytvyn.</a>
         </h3>
         <h3>
-          The data source is <a href="https://www.themoviedb.org/">The Movie Database</a> shop.
+          The data source is <a href="https://www.themoviedb.org/">The Movie Database</a>.
         </h3>
         <img src={logoMain} style={{ width: '100px' }} alt="TMDB" />
       </div>

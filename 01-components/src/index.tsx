@@ -7,6 +7,7 @@ import App from 'pages/MainPage';
 import Page404 from 'pages/404';
 import AboutUs from 'pages/AboutUs';
 import FormPage from 'pages/FormPage';
+import { UserProvider } from 'components/UserContext';
 
 const router = createHashRouter([
   {
@@ -34,7 +35,9 @@ const router = createHashRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
   </React.StrictMode>
 );
 

@@ -11,15 +11,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-// describe('Main', () => {
-//   test('renders Main component', () => {
-//     render(<RouterProvider router={router} />);
-
-//     expect(screen.getByText('Canon EOS 4000D 18-55 DC III')).toBeInTheDocument();
-//     expect(screen.getByText('Canon EOS 5D Mark IV 24-105L IS II')).toBeInTheDocument();
-//   });
-// });
-
 describe('Main', () => {
   test('renders popular movies cards and votes count (797)', async () => {
     render(<RouterProvider router={router} />);

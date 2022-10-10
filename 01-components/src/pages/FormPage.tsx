@@ -1,19 +1,13 @@
 import RequestForm from 'components/Form';
-import RequestCard, { MovieReqData } from 'components/MovieReqCard';
-import React, { useState } from 'react';
+import RequestCard from 'components/MovieReqCard';
+import { UserContext } from 'components/UserContext';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function FormPage() {
-  const [movieReqData, setMovieReqData] = useState([] as MovieReqData[]);
-
-  const addRequest = (cameraData: MovieReqData) => {
-    const newCameraData = cameraData;
-    newCameraData.num = movieReqData.length + 1;
-    setMovieReqData([...movieReqData, newCameraData]);
-  };
-
+  const { movieReqData, addRequest } = React.useContext(UserContext);
   const cards = movieReqData.map((item) => <RequestCard key={item.num} {...item} />);
 
   return (
