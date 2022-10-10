@@ -12,9 +12,10 @@ import {
 import ModalCard from './ModalCard';
 import { NetworkError, Preloader } from './Network';
 import { UserContext } from './UserContext';
+import { SearchResContext } from './SearchContext';
 
 export default function Main() {
-  const { renderData, setRenderData } = useContext(UserContext);
+  const { renderData, setRenderData } = useContext(SearchResContext);
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQuery') || '');
   const [dataOnClick, setDataOnClick] = useState<MovieDetails | null>(null);
   const [showModal, setShowModal] = useState(false);
