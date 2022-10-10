@@ -86,7 +86,7 @@ export default function ModalCard(props: ModalCardProps) {
           }
         />
         <div className="modal-card__text">
-          <h3 className="modal-card__movie-name">{props.data?.title}</h3>
+          <h3 className="modal-card__movie-name">{props.data?.title || props.data?.name}</h3>
           <div className="modal-card__movie-tagline">{props.data?.tagline}</div>
           <div className="modal-card__movie-overview">{props.data?.overview}</div>
           <div className="movie-card__ratings">
@@ -108,7 +108,9 @@ export default function ModalCard(props: ModalCardProps) {
           </div>
           <div className="movie-card__block">
             <span className="text-med">Release date:</span>
-            <span className="text-big">{props.data?.release_date}</span>
+            <span className="text-big">
+              {props.data?.release_date || props.data?.first_air_date}
+            </span>
           </div>
           <div className="movie-card__block">
             <span className="text-med">Genres:</span>

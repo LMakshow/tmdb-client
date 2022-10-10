@@ -7,7 +7,8 @@ export interface MovieData {
   id: number;
   original_title: string;
   original_language: string;
-  title: string;
+  title?: string;
+  name?: string;
   backdrop_path: string;
   popularity: number;
   vote_count: number;
@@ -59,7 +60,8 @@ export interface MovieDetails {
     iso_3166_1: string;
     name: string;
   }[];
-  release_date: string;
+  release_date?: string;
+  first_air_date?: string;
   revenue: number;
   runtime: number;
   spoken_languages: {
@@ -69,7 +71,8 @@ export interface MovieDetails {
   }[];
   status: string;
   tagline: string;
-  title: string;
+  title?: string;
+  name?: string;
   video: boolean;
   vote_average: number;
   vote_count: number;

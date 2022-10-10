@@ -3,50 +3,24 @@ import Search from './Search';
 import MovieCard from './MovieCard';
 import Heading from './Heading';
 import { MovieData, MovieDetails } from 'utils/TMDBinterfaces';
-import {
-  getErrorMessage,
-  movieDetailsUrl,
-  moviesPopularUrl,
-  searchMoviesUrl,
-} from 'utils/fetchUtils';
+import { getErrorMessage, movieDetailsUrl } from 'utils/fetchUtils';
 import ModalCard from './ModalCard';
 import { NetworkError, Preloader } from './Network';
-import { UserContext } from './UserContext';
 import { SearchResContext } from './SearchContext';
 
 export default function Main() {
-  const { renderData, setRenderData } = useContext(SearchResContext);
-  const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQuery') || '');
+  const {
+    renderData,
+    searchFetchRequest,
+    searchModel,
+    loading,
+    movieListError,
+    searchQuery,
+    searchQueryChange,
+  } = useContext(SearchResContext);
   const [dataOnClick, setDataOnClick] = useState<MovieDetails | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [movieListError, setMovieListError] = useState<boolean | string>(false);
   const [modalCardError, setModalCardError] = useState<boolean | string>(false);
-
-  const searchFetchRequest = async (query: string) => {
-    try {
-      setLoading(true);
-      setMovieListError(false);
-      if (query) {
-        const response = await fetch(searchMoviesUrl(query));
-        if (!response.ok) throw Error('Error fetching the search movies data');
-        const movies = (await response.json()).results;
-        setRenderData(movies);
-      }
-      if (!query) {
-        const response = await fetch(moviesPopularUrl());
-        if (!response.ok) throw Error('Error fetching the popular movies data');
-        const movies = (await response.json()).results;
-        setRenderData(movies);
-      }
-    } catch (err) {
-      const message = getErrorMessage(err);
-      console.log(getErrorMessage(err));
-      setMovieListError(message);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleCardClick = async (id: number) => {
     try {
@@ -54,7 +28,7 @@ export default function Main() {
         setDataOnClick(null);
         setModalCardError(false);
         toggleModal();
-        const response = await fetch(movieDetailsUrl(id));
+        const response = await fetch(movieDetailsUrl(id, searchModel));
         if (!response.ok) throw Error('Error fetching the movie details data');
         const details = await response.json();
         setDataOnClick(details);
@@ -66,19 +40,9 @@ export default function Main() {
     }
   };
 
-  const searchQueryChange = (query: string) => {
-    setSearchQuery(query);
-  };
-
   const searchSubmit = () => searchFetchRequest(searchQuery);
 
   const toggleModal = () => setShowModal(!showModal);
-
-  useEffect(() => {
-    if (renderData.length === 0) searchFetchRequest(searchQuery);
-    // Need to update only once after load
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     const componentSaveStorage = () => {

@@ -17,7 +17,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setMovieReqData([...movieReqData, newCameraData]);
   };
 
-  const value = { movieReqData, addRequest };
+  const value = {
+    movieReqData,
+    addRequest,
+  };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

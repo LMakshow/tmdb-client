@@ -24,7 +24,7 @@ export default function MovieCard(props: MovieCardProps) {
             alt="Photo"
           />
         </div>
-        <h2 className="movie-card__name">{props.title}</h2>
+        <h2 className="movie-card__name">{props.title || props.name}</h2>
 
         <div className="movie-card__ratings">
           <div className="movie-card__block">
