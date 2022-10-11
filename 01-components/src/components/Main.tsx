@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import Search from './Search';
 import MovieCard from './MovieCard';
 import Heading from './Heading';
@@ -17,6 +18,9 @@ export default function Main() {
     movieListError,
     searchQuery,
     searchQueryChange,
+    pageCount,
+    pageCurrent,
+    setPageCurrent,
   } = useContext(SearchResContext);
   const [dataOnClick, setDataOnClick] = useState<MovieDetails | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -40,7 +44,10 @@ export default function Main() {
     }
   };
 
-  const searchSubmit = () => searchFetchRequest(searchQuery);
+  const searchSubmit = () => {
+    setPageCurrent(0);
+    searchFetchRequest(searchQuery);
+  };
 
   const toggleModal = () => setShowModal(!showModal);
 
@@ -55,6 +62,10 @@ export default function Main() {
       window.removeEventListener('beforeunload', componentSaveStorage);
     };
   }, [searchQuery]);
+
+  const handlePageClick = (event: { selected: number }) => {
+    setPageCurrent(event.selected);
+  };
 
   const generateCards = (data: MovieData[]) => {
     const cards = [] as JSX.Element[];
@@ -76,9 +87,26 @@ export default function Main() {
       <div className="movie-page">
         {loading && <Preloader />}
         {movieListError && <NetworkError message={movieListError as string} />}
-        {!loading && !movieListError && cards.length === 0
-          ? 'No matches with the search query.'
-          : cards}
+        {!loading && !movieListError && cards.length === 0 ? (
+          <div className="about-page text-big">No matches with the search query.</div>
+        ) : (
+          cards
+        )}
+        {!loading && !movieListError && cards.length > 0 && (
+          <ReactPaginate
+            pageCount={pageCount}
+            forcePage={pageCurrent}
+            className="pagination"
+            previousLabel="< Prev"
+            nextLabel="Next >"
+            onPageChange={handlePageClick}
+            pageClassName="pagination__page"
+            pageLinkClassName="pagination__link"
+            nextLinkClassName="pagination__link"
+            previousLinkClassName="pagination__link"
+            breakClassName="ellipsis"
+          />
+        )}
       </div>
       <ModalCard
         error={modalCardError}

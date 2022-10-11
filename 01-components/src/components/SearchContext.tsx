@@ -16,6 +16,9 @@ interface SearchContextType {
   changeSearchAdult: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   searchYear: string;
   changeSearchYear: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  pageCount: number;
+  pageCurrent: number;
+  setPageCurrent: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const SearchResContext = React.createContext<SearchContextType>(null);
@@ -28,6 +31,9 @@ export const SearchResProvider = ({ children }: { children: React.ReactNode }) =
   const [searchModel, setSearchModel] = useState('movie');
   const [searchAdult, setSearchAdult] = useState('no-adult');
   const [searchYear, setSearchYear] = useState('any-year');
+  const [pageCount, setPageCount] = useState(10);
+  const [pageCurrent, setPageCurrent] = useState(1);
+  const [pageItems, setPageItems] = useState(20);
 
   const searchFetchRequest = async (query: string) => {
     try {
@@ -35,16 +41,22 @@ export const SearchResProvider = ({ children }: { children: React.ReactNode }) =
       setMovieListError(false);
       if (query) {
         const response = await fetch(
-          searchMoviesUrl(query, 1, searchModel, searchAdult, searchYear)
+          searchMoviesUrl(query, pageCurrent + 1, searchModel, searchAdult, searchYear)
         );
         if (!response.ok) throw Error('Error fetching the search movies data');
-        const movies = (await response.json()).results;
+        const json = await response.json();
+        const movies = json.results;
+        setPageCount(json.total_pages);
         setRenderData(movies);
       }
       if (!query) {
-        const response = await fetch(moviesPopularUrl(1, searchModel, searchAdult, searchYear));
+        const response = await fetch(
+          moviesPopularUrl(pageCurrent + 1, searchModel, searchAdult, searchYear)
+        );
         if (!response.ok) throw Error('Error fetching the popular movies data');
-        const movies = (await response.json()).results;
+        const json = await response.json();
+        const movies = json.results;
+        setPageCount(json.total_pages);
         setRenderData(movies);
       }
     } catch (err) {
@@ -77,7 +89,7 @@ export const SearchResProvider = ({ children }: { children: React.ReactNode }) =
     searchFetchRequest(searchQuery);
     // Fetch the new data after one of select boxes changed
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchModel, searchAdult, searchYear]);
+  }, [searchModel, searchAdult, searchYear, pageCurrent]);
 
   const value = {
     renderData,
@@ -93,6 +105,9 @@ export const SearchResProvider = ({ children }: { children: React.ReactNode }) =
     changeSearchAdult,
     searchYear,
     changeSearchYear,
+    pageCount,
+    pageCurrent,
+    setPageCurrent,
   };
 
   return <SearchResContext.Provider value={value}>{children}</SearchResContext.Provider>;
