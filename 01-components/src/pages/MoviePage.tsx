@@ -22,10 +22,12 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 export default function MoviePage() {
-  const { searchModel } = useContext(SearchResContext);
+  const { searchState } = useContext(SearchResContext);
   return (
     <div className="root">
-      <Header pageName={`Details of the ${searchModel === 'tv' ? 'TV show' : searchModel}`} />
+      <Header
+        pageName={`Details of the ${searchState.model === 'tv' ? 'TV show' : searchState.model}`}
+      />
       <MovieDetails />
       <Footer />
     </div>

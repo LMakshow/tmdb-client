@@ -6,6 +6,7 @@ import Heading from './Heading';
 import { MovieData } from 'utils/TMDBinterfaces';
 import { NetworkError, Preloader } from './Network';
 import { SearchResContext } from './SearchContext';
+import { PageActionKind } from 'utils/pageReducer';
 
 export default function Main() {
   const {
@@ -13,23 +14,23 @@ export default function Main() {
     searchFetchRequest,
     loading,
     movieListError,
-    searchQuery,
+    searchState,
     searchQueryChange,
-    pageCount,
-    pageCurrent,
-    setPageCurrent,
-    pageItems,
-    setPageItems,
+    pageState,
+    pageDispatch,
   } = useContext(SearchResContext);
 
   const searchSubmit = () => {
-    setPageCurrent(0);
-    searchFetchRequest(searchQuery);
+    pageDispatch({
+      type: PageActionKind.PAGE_CURRENT,
+      payload: 0,
+    });
+    searchFetchRequest(searchState.query);
   };
 
   useEffect(() => {
     const componentSaveStorage = () => {
-      localStorage.setItem('searchQuery', searchQuery);
+      localStorage.setItem('searchQuery', searchState.query);
     };
 
     window.addEventListener('beforeunload', componentSaveStorage);
@@ -37,15 +38,19 @@ export default function Main() {
       componentSaveStorage();
       window.removeEventListener('beforeunload', componentSaveStorage);
     };
-  }, [searchQuery]);
+  }, [searchState.query]);
 
-  const handlePageClick = (e: { selected: number }) => setPageCurrent(e.selected);
+  const handlePageClick = (e: { selected: number }) =>
+    pageDispatch({
+      type: PageActionKind.PAGE_CURRENT,
+      payload: e.selected,
+    });
 
   const changePageItems = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const prevPageItems = pageItems;
-    const newPageItems = Number(e.target.value);
-    setPageItems(newPageItems);
-    setPageCurrent((prevPage) => Math.floor(prevPage * (prevPageItems / newPageItems)));
+    pageDispatch({
+      type: PageActionKind.PAGE_ITEMS,
+      payload: Number(e.target.value),
+    });
   };
 
   const generateCards = (data: MovieData[]) => {
@@ -63,7 +68,7 @@ export default function Main() {
       <Search
         onQueryChange={searchQueryChange}
         onSearchSubmit={searchSubmit}
-        searchQuery={searchQuery}
+        searchQuery={searchState.query}
       />
       <div className="movie-page">
         {loading && <Preloader />}
@@ -75,14 +80,14 @@ export default function Main() {
         )}
         {cards.length > 0 && (
           <div className="pagination-container">
-            <select className="select-field" value={pageItems} onChange={changePageItems}>
+            <select className="select-field" value={pageState.items} onChange={changePageItems}>
               <option value="10">Page Items: 10</option>
               <option value="20">Page Items: 20</option>
               <option value="40">Page Items: 40</option>
             </select>
             <ReactPaginate
-              pageCount={pageCount}
-              forcePage={pageCurrent}
+              pageCount={pageState.count}
+              forcePage={pageState.current}
               className="pagination"
               previousLabel="< Prev"
               nextLabel="Next >"

@@ -16,7 +16,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d ./build -e ./04-hooks -a true -m deploy_04-hooks"
+    "deploy": "gh-pages -d ./build -e ./05-state -a true -m deploy_05-state"
   },
   "eslintConfig": {
     "extends": [

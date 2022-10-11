@@ -22,14 +22,8 @@ const yearsOptions = () => {
 };
 
 export default function Search(props: SearchProps) {
-  const {
-    searchModel,
-    changeSearchModel,
-    searchAdult,
-    changeSearchAdult,
-    searchYear,
-    changeSearchYear,
-  } = useContext(SearchResContext);
+  const { searchState, changeSearchModel, changeSearchAdult, changeSearchYear } =
+    useContext(SearchResContext);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     props.onQueryChange(e.target.value);
@@ -58,15 +52,15 @@ export default function Search(props: SearchProps) {
         <button type="submit" className="search-submit"></button>
       </form>
       <div className="select-container">
-        <select className="select-field" value={searchModel} onChange={changeSearchModel}>
+        <select className="select-field" value={searchState.model} onChange={changeSearchModel}>
           <option value="movie">Movies</option>
           <option value="tv">TV Shows</option>
         </select>
-        <select className="select-field" value={searchAdult} onChange={changeSearchAdult}>
+        <select className="select-field" value={searchState.adult} onChange={changeSearchAdult}>
           <option value="no-adult">Exclude Adult</option>
           <option value="adult">Include Adult</option>
         </select>
-        <select className="select-field" value={searchYear} onChange={changeSearchYear}>
+        <select className="select-field" value={searchState.year} onChange={changeSearchYear}>
           <option value="any-year">Any release year</option>
           {yearsOptions()}
         </select>

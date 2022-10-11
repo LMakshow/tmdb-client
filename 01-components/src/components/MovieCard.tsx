@@ -4,9 +4,9 @@ import { MovieData } from 'utils/TMDBinterfaces';
 import { SearchResContext } from './SearchContext';
 
 export default function MovieCard(props: MovieData) {
-  const { searchModel } = useContext(SearchResContext);
+  const { searchState } = useContext(SearchResContext);
   return (
-    <Link to={`/details/${searchModel}/${props.id}`} className="movie-card-template">
+    <Link to={`/details/${searchState.model}/${props.id}`} className="movie-card-template">
       <div className="shop-card movie-card">
         <div className="movie-card__image-container">
           <img
