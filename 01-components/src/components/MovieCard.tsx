@@ -1,17 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { MovieData } from 'utils/TMDBinterfaces';
+import { SearchResContext } from './SearchContext';
 
-interface MovieCardProps extends MovieData {
-  onClick: (id: number) => Promise<void>;
-}
-
-export default function MovieCard(props: MovieCardProps) {
-  const handleClick = () => {
-    props.onClick(props.id);
-  };
-
+export default function MovieCard(props: MovieData) {
+  const { searchModel } = useContext(SearchResContext);
   return (
-    <div className="movie-card-template" onClick={handleClick}>
+    <Link to={`/details/${searchModel}/${props.id}`} className="movie-card-template">
       <div className="shop-card movie-card">
         <div className="movie-card__image-container">
           <img
@@ -37,6 +32,6 @@ export default function MovieCard(props: MovieCardProps) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

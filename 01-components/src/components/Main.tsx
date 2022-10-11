@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import Search from './Search';
 import MovieCard from './MovieCard';
 import Heading from './Heading';
-import { MovieData, MovieDetails } from 'utils/TMDBinterfaces';
-import { getErrorMessage, movieDetailsUrl } from 'utils/fetchUtils';
-import ModalCard from './ModalCard';
+import { MovieData } from 'utils/TMDBinterfaces';
 import { NetworkError, Preloader } from './Network';
 import { SearchResContext } from './SearchContext';
 
@@ -13,7 +11,6 @@ export default function Main() {
   const {
     renderData,
     searchFetchRequest,
-    searchModel,
     loading,
     movieListError,
     searchQuery,
@@ -24,34 +21,11 @@ export default function Main() {
     pageItems,
     setPageItems,
   } = useContext(SearchResContext);
-  const [dataOnClick, setDataOnClick] = useState<MovieDetails | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const [modalCardError, setModalCardError] = useState<boolean | string>(false);
-
-  const handleCardClick = async (id: number) => {
-    try {
-      if (id) {
-        setDataOnClick(null);
-        setModalCardError(false);
-        toggleModal();
-        const response = await fetch(movieDetailsUrl(id, searchModel));
-        if (!response.ok) throw Error('Error fetching the movie details data');
-        const details = await response.json();
-        setDataOnClick(details);
-      }
-    } catch (err) {
-      const message = getErrorMessage(err);
-      console.log(getErrorMessage(message));
-      setModalCardError(message);
-    }
-  };
 
   const searchSubmit = () => {
     setPageCurrent(0);
     searchFetchRequest(searchQuery);
   };
-
-  const toggleModal = () => setShowModal(!showModal);
 
   useEffect(() => {
     const componentSaveStorage = () => {
@@ -77,7 +51,7 @@ export default function Main() {
   const generateCards = (data: MovieData[]) => {
     const cards = [] as JSX.Element[];
     data.forEach((item) => {
-      cards.push(<MovieCard key={item.id} onClick={handleCardClick} {...item} />);
+      cards.push(<MovieCard key={item.id} {...item} />);
     });
     return cards;
   };
@@ -122,12 +96,6 @@ export default function Main() {
           </div>
         )}
       </div>
-      <ModalCard
-        error={modalCardError}
-        data={dataOnClick}
-        show={showModal}
-        toggleModal={toggleModal}
-      />
     </div>
   );
 }

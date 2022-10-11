@@ -17,12 +17,14 @@
 
 .modal-card {
   position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
   padding: 15px;
   border-radius: 20px;
-  width: 780px;
+  width: 95%;
+  max-width: 1100px;
+  margin: auto;
   min-height: 439px;
   box-shadow: rgba(0, 0, 0, 0.3) 10px 10px 10px;
   animation-name: appear;
@@ -43,22 +45,30 @@
 
 .modal-card__button {
   position: absolute;
+  background: $primary-color;
+  border-radius: 10px;
+  font-size: 20px;
   right: 15px;
   top: 15px;
-  width: 25px;
-  height: 25px;
+  padding: 5px 20px;
+  transition: all 0.2s;
 
   &:hover,
   &:focus {
-    filter: $hover-effect;
     cursor: pointer;
+    background-color: $accent-dark-color;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3), 0px 2px 5px rgba(0, 0, 0, 0.15), 0px 0px 2px 0.00144px rgba(0, 0, 0, 0.12);
+  }
+
+  &:active {
+    background-color: $accent-color;
   }
 }
 
 .modal-card__poster {
   box-shadow: rgba(0, 0, 0, 0.3) 3px 3px 10px;
   height: 100%;
-  max-width: 272px;
+  max-width: 450px;
   border-radius: 10px;
 }
 

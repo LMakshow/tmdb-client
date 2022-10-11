@@ -9,6 +9,7 @@ import AboutUs from 'pages/AboutUs';
 import FormPage from 'pages/FormPage';
 import { UserProvider } from 'components/UserContext';
 import { SearchResProvider } from 'components/SearchContext';
+import MoviePage, { loader as movieDetailsLoader } from 'pages/MoviePage';
 
 const router = createHashRouter([
   {
@@ -29,6 +30,12 @@ const router = createHashRouter([
   {
     path: '/form',
     element: <FormPage />,
+    errorElement: <Page404 />,
+  },
+  {
+    path: '/details/:searchModel/:movieId',
+    loader: movieDetailsLoader,
+    element: <MoviePage />,
     errorElement: <Page404 />,
   },
 ]);
