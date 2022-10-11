@@ -12,11 +12,16 @@ $hover-effect: invert(10%) sepia(93%) saturate(5894%) hue-rotate(2deg) brightnes
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance: none;
+  appearance: none;
 }
 
 body {

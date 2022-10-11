@@ -36,7 +36,6 @@
   }
 
   @media screen and (max-width: 630px) {
-    width: 48%;
     height: auto;
     justify-content: space-between;
   }
@@ -128,19 +127,11 @@
   }
 }
 
-.shop-card__price-mpix,
-.shop-card__stock-cart,
 .movie-card__ratings {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 5px;
-
-  @media screen and (max-width: 630px) {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0;
-  }
 }
 
 .movie-card__average {
@@ -214,9 +205,18 @@
   }
 }
 
+.pagination-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+}
+
 .pagination {
   display: flex;
-  width: 80%;
+  flex-wrap: wrap;
+  width: 75%;
   font-size: 24px;
   gap: 5px;
   margin: 10px 0;

@@ -21,6 +21,8 @@ export default function Main() {
     pageCount,
     pageCurrent,
     setPageCurrent,
+    pageItems,
+    setPageItems,
   } = useContext(SearchResContext);
   const [dataOnClick, setDataOnClick] = useState<MovieDetails | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -63,8 +65,13 @@ export default function Main() {
     };
   }, [searchQuery]);
 
-  const handlePageClick = (event: { selected: number }) => {
-    setPageCurrent(event.selected);
+  const handlePageClick = (e: { selected: number }) => setPageCurrent(e.selected);
+
+  const changePageItems = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const prevPageItems = pageItems;
+    const newPageItems = Number(e.target.value);
+    setPageItems(newPageItems);
+    setPageCurrent((prevPage) => Math.floor(prevPage * (prevPageItems / newPageItems)));
   };
 
   const generateCards = (data: MovieData[]) => {
@@ -92,20 +99,27 @@ export default function Main() {
         ) : (
           cards
         )}
-        {!loading && !movieListError && cards.length > 0 && (
-          <ReactPaginate
-            pageCount={pageCount}
-            forcePage={pageCurrent}
-            className="pagination"
-            previousLabel="< Prev"
-            nextLabel="Next >"
-            onPageChange={handlePageClick}
-            pageClassName="pagination__page"
-            pageLinkClassName="pagination__link"
-            nextLinkClassName="pagination__link"
-            previousLinkClassName="pagination__link"
-            breakClassName="ellipsis"
-          />
+        {cards.length > 0 && (
+          <div className="pagination-container">
+            <select className="select-field" value={pageItems} onChange={changePageItems}>
+              <option value="10">Page Items: 10</option>
+              <option value="20">Page Items: 20</option>
+              <option value="40">Page Items: 40</option>
+            </select>
+            <ReactPaginate
+              pageCount={pageCount}
+              forcePage={pageCurrent}
+              className="pagination"
+              previousLabel="< Prev"
+              nextLabel="Next >"
+              onPageChange={handlePageClick}
+              pageClassName="pagination__page"
+              pageLinkClassName="pagination__link"
+              nextLinkClassName="pagination__link"
+              previousLinkClassName="pagination__link"
+              breakClassName="ellipsis"
+            />
+          </div>
         )}
       </div>
       <ModalCard
