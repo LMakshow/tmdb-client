@@ -22,19 +22,19 @@ export default function Main() {
 
   const searchSubmit = () => {
     dispatch(changeCurrentPage(0));
-    fetchMovies(query);
+    dispatch(fetchMovies(query));
   };
 
   const searchQueryChange = (query: string) => dispatch(changeSearchQuery(query));
 
   useEffect(() => {
-    if (movies.length === 0) fetchMovies(query);
+    if (movies.length === 0) dispatch(fetchMovies(query));
     // Need to fetch data only once after load if currently no data
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    fetchMovies(query);
+    dispatch(fetchMovies(query));
     window.scrollTo(0, 160);
     // Fetch the new data after changing page or items per page and scroll to the top
     // eslint-disable-next-line react-hooks/exhaustive-deps

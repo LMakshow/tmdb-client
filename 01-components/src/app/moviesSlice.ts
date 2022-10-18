@@ -11,7 +11,7 @@ const pageRequest = (currentPage: number, itemsPerPage: number) => {
 };
 
 export const fetchMovies = createAsyncThunk<MovieData[], string, { state: RootState }>(
-  'movies/fetchMovies',
+  'movies/fetchData',
   async (query: string, { dispatch, getState }) => {
     const { currentPage, itemsPerPage } = getState().paginator;
     const { model, adult, year } = getState().search;
