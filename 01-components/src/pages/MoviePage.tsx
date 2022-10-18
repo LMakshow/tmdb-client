@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import MovieDetails from 'components/MovieDetails';
 import { LoaderFunctionArgs, redirect } from 'react-router-dom';
 import { getErrorMessage, movieDetailsUrl } from 'utils/fetchUtils';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { SearchResContext } from '../components/SearchContext';
+import { useAppSelector } from 'app/hooks';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   try {
@@ -22,12 +22,10 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 export default function MoviePage() {
-  const { searchState } = useContext(SearchResContext);
+  const model = useAppSelector((state) => state.search.model);
   return (
     <div className="root">
-      <Header
-        pageName={`Details of the ${searchState.model === 'tv' ? 'TV show' : searchState.model}`}
-      />
+      <Header pageName={`Details of the ${model === 'tv' ? 'TV show' : model}`} />
       <MovieDetails />
       <Footer />
     </div>

@@ -8,8 +8,12 @@ export const paginatorSlice = createSlice({
     itemsPerPage: 20,
   },
   reducers: {
-    changePageCount: (state, action) => (state.pageCount = action.payload),
-    changeCurrentPage: (state, action) => (state.currentPage = action.payload),
+    changePageCount: (state, action) => {
+      state.pageCount = action.payload;
+    },
+    changeCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
     changeItemsPerPage: (state, action) => {
       state.currentPage = Math.floor(state.currentPage * (state.itemsPerPage / action.payload));
       state.itemsPerPage = action.payload;

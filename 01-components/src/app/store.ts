@@ -1,11 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import paginatorReducer from './paginatorSlice';
-// import searchReducer from 'searchSlice';
+import searchReducer from './searchSlice';
+import moviesReducer from './moviesSlice';
 // import movieReqReducer from 'movieReqSlice';
 
 export const store = configureStore({
   reducer: {
     paginator: paginatorReducer,
+    search: searchReducer,
+    movies: moviesReducer,
   },
 });
 

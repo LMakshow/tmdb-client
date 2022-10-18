@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import { useAppSelector } from 'app/hooks';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { MovieData } from 'utils/TMDBinterfaces';
-import { SearchResContext } from './SearchContext';
 
 export default function MovieCard(props: MovieData) {
-  const { searchState } = useContext(SearchResContext);
+  const model = useAppSelector((state) => state.search.model);
   return (
-    <Link to={`/details/${searchState.model}/${props.id}`} className="movie-card-template">
+    <Link to={`/details/${model}/${props.id}`} className="movie-card-template">
       <div className="shop-card movie-card">
         <div className="movie-card__image-container">
           <img
