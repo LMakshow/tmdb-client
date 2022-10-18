@@ -6,7 +6,8 @@ import Heading from './Heading';
 import { MovieData } from 'utils/TMDBinterfaces';
 import { NetworkError, Preloader } from './Network';
 import { SearchResContext } from './SearchContext';
-import { PageActionKind } from 'utils/pageReducer';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { changeCurrentPage, changeItemsPerPage } from 'app/paginatorSlice';
 
 export default function Main() {
   const {
@@ -16,15 +17,15 @@ export default function Main() {
     movieListError,
     searchState,
     searchQueryChange,
-    pageState,
-    pageDispatch,
   } = useContext(SearchResContext);
 
+  const pageCount = useAppSelector((state) => state.paginator.pageCount);
+  const currentPage = useAppSelector((state) => state.paginator.currentPage);
+  const itemsPerPage = useAppSelector((state) => state.paginator.itemsPerPage);
+  const dispatch = useAppDispatch();
+
   const searchSubmit = () => {
-    pageDispatch({
-      type: PageActionKind.PAGE_CURRENT,
-      payload: 0,
-    });
+    dispatch(changeCurrentPage(0));
     searchFetchRequest(searchState.query);
   };
 
@@ -40,18 +41,10 @@ export default function Main() {
     };
   }, [searchState.query]);
 
-  const handlePageClick = (e: { selected: number }) =>
-    pageDispatch({
-      type: PageActionKind.PAGE_CURRENT,
-      payload: e.selected,
-    });
+  const handlePageClick = (e: { selected: number }) => dispatch(changeCurrentPage(e.selected));
 
-  const changePageItems = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    pageDispatch({
-      type: PageActionKind.PAGE_ITEMS,
-      payload: Number(e.target.value),
-    });
-  };
+  const changePageItems = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    dispatch(changeItemsPerPage(Number(e.target.value)));
 
   const generateCards = (data: MovieData[]) => {
     const cards = [] as JSX.Element[];
@@ -80,14 +73,14 @@ export default function Main() {
         )}
         {cards.length > 0 && (
           <div className="pagination-container">
-            <select className="select-field" value={pageState.items} onChange={changePageItems}>
+            <select className="select-field" value={itemsPerPage} onChange={changePageItems}>
               <option value="10">Page Items: 10</option>
               <option value="20">Page Items: 20</option>
               <option value="40">Page Items: 40</option>
             </select>
             <ReactPaginate
-              pageCount={pageState.count}
-              forcePage={pageState.current}
+              pageCount={pageCount}
+              forcePage={currentPage}
               className="pagination"
               previousLabel="< Prev"
               nextLabel="Next >"
