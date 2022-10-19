@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { fetchMovies } from 'app/moviesSlice';
 import { changeCurrentPage } from 'app/paginatorSlice';
 import { changeSearchAdult, changeSearchModel, changeSearchYear } from 'app/searchSlice';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface SearchProps {
@@ -29,7 +29,6 @@ export default function Search(props: SearchProps) {
   const model = useAppSelector((state) => state.search.model);
   const adult = useAppSelector((state) => state.search.adult);
   const year = useAppSelector((state) => state.search.year);
-  const query = useAppSelector((state) => state.search.query);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     props.onQueryChange(e.target.value);
@@ -40,21 +39,23 @@ export default function Search(props: SearchProps) {
     e.preventDefault();
   };
 
-  const changeModel = (e: React.ChangeEvent<HTMLSelectElement>) =>
+  const changeModel = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(changeSearchModel(e.target.value));
-
-  const changeAdult = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    dispatch(changeSearchAdult(e.target.value));
-
-  const changeYear = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    dispatch(changeSearchYear(e.target.value));
-
-  useEffect(() => {
     dispatch(changeCurrentPage(0));
-    fetchMovies(query);
-    // Reset to the 1 page and fetch the new data after one of select boxes changed
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [model, adult, year]);
+    dispatch(fetchMovies());
+  };
+
+  const changeAdult = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(changeSearchAdult(e.target.value));
+    dispatch(changeCurrentPage(0));
+    dispatch(fetchMovies());
+  };
+
+  const changeYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(changeSearchYear(e.target.value));
+    dispatch(changeCurrentPage(0));
+    dispatch(fetchMovies());
+  };
 
   return (
     <div className="search-container">

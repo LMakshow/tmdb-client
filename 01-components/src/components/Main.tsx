@@ -22,23 +22,16 @@ export default function Main() {
 
   const searchSubmit = () => {
     dispatch(changeCurrentPage(0));
-    dispatch(fetchMovies(query));
+    dispatch(fetchMovies());
   };
 
   const searchQueryChange = (query: string) => dispatch(changeSearchQuery(query));
 
   useEffect(() => {
-    if (movies.length === 0) dispatch(fetchMovies(query));
+    if (status === 'idle') dispatch(fetchMovies());
     // Need to fetch data only once after load if currently no data
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    dispatch(fetchMovies(query));
-    window.scrollTo(0, 160);
-    // Fetch the new data after changing page or items per page and scroll to the top
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, itemsPerPage]);
 
   useEffect(() => {
     const componentSaveStorage = () => {
@@ -52,10 +45,17 @@ export default function Main() {
     };
   }, [query]);
 
-  const handlePageClick = (e: { selected: number }) => dispatch(changeCurrentPage(e.selected));
+  const handlePageClick = (e: { selected: number }) => {
+    dispatch(changeCurrentPage(e.selected));
+    dispatch(fetchMovies());
+    window.scrollTo(0, 160);
+  };
 
-  const changePageItems = (e: React.ChangeEvent<HTMLSelectElement>) =>
+  const changePageItems = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(changeItemsPerPage(Number(e.target.value)));
+    dispatch(fetchMovies());
+    window.scrollTo(0, 160);
+  };
 
   const generateCards = (data: MovieData[]) => {
     const cards = [] as JSX.Element[];

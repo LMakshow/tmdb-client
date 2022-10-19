@@ -10,11 +10,11 @@ const pageRequest = (currentPage: number, itemsPerPage: number) => {
   return currentPage + 1;
 };
 
-export const fetchMovies = createAsyncThunk<MovieData[], string, { state: RootState }>(
+export const fetchMovies = createAsyncThunk<MovieData[], void, { state: RootState }>(
   'movies/fetchData',
-  async (query: string, { dispatch, getState }) => {
+  async (_: void, { dispatch, getState }) => {
     const { currentPage, itemsPerPage } = getState().paginator;
-    const { model, adult, year } = getState().search;
+    const { query, model, adult, year } = getState().search;
     const page = pageRequest(currentPage, itemsPerPage);
     const response = await fetch(
       query
@@ -60,7 +60,7 @@ export const moviesSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchMovies.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = 'succeeded';
         state.movies = action.payload;
       })
       .addCase(fetchMovies.rejected, (state, action) => {
