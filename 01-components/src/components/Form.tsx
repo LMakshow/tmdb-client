@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import validFileType from 'utils/fileUtils';
-import { MovieReqData } from './MovieReqCard';
+import { MovieReqData } from 'utils/TMDBinterfaces';
 
 interface FormPageProps {
   movieReq: (requestData: MovieReqData) => void;
@@ -42,7 +42,6 @@ export default function RequestForm(props: FormPageProps) {
           className="form-select stretch"
           type="text"
           {...register('title', { required: true })}
-          // onChange={enableSubmitButton}
         />
       </label>
       {errors.title && (

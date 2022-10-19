@@ -1,22 +1,5 @@
 import React from 'react';
-
-export interface MovieReqData {
-  num?: number;
-  date: string;
-  description: string;
-  files: FileList;
-  genres: {
-    action: boolean;
-    comedy: boolean;
-    drama: boolean;
-    fantasy: boolean;
-    other: boolean;
-  };
-  title: string;
-  score: string;
-  type: string;
-  viewed: boolean;
-}
+import { MovieReqData } from 'utils/TMDBinterfaces';
 
 const genresCards = (genres: { [key: string]: boolean }) => {
   if (!genres) return null;

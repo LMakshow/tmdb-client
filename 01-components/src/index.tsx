@@ -9,7 +9,6 @@ import AboutUs from 'pages/AboutUs';
 import FormPage from 'pages/FormPage';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
-import { UserProvider } from 'components/UserContext';
 import MoviePage, { loader as movieDetailsLoader } from 'pages/MoviePage';
 
 const router = createHashRouter([
@@ -45,9 +44,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <UserProvider>
-        <RouterProvider router={router} />
-      </UserProvider>
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );
