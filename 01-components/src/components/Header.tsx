@@ -13,7 +13,7 @@ export default function Header(props: { pageName: string }) {
       </h1>
       <div className="navigation">{props.pageName}</div>
       <Link className="navigation header__link main" to="/about">
-        <span className="header__link_span">About us</span>
+        <span className="header__link_about">About us</span>
       </Link>
     </div>
   );

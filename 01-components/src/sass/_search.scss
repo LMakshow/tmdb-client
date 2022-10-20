@@ -7,6 +7,7 @@
   justify-content: center;
   margin: auto;
   margin-bottom: 20px;
+  padding: 0px 20px;
 }
 
 .button_big {
@@ -76,6 +77,11 @@
 .select-container {
   display: flex;
   gap: 10px;
+
+  @media screen and (max-width: 580px) {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }
 
 .select-field {
@@ -89,4 +95,10 @@
   font-size: 20px;
   color: $text-color;
   border: 2px solid $text-secondary-color;
+
+  @media screen and (max-width: 580px) {
+    font-size: 16px;
+    width: 140px;
+    height: 40px;
+  }
 }
