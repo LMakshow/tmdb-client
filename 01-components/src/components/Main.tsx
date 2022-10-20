@@ -5,11 +5,9 @@ import MovieCard from './MovieCard';
 import Heading from './Heading';
 import { NetworkError, Preloader } from './Network';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { changeCurrentPage, changeItemsPerPage } from 'app/paginatorSlice';
+import { changeCurrentPage, changeItemsPerPage, changePageCount } from 'app/paginatorSlice';
 import { changeSearchQuery } from 'app/searchSlice';
-import { fetchMovies } from 'app/moviesSlice';
 import { useGetMoviesQuery } from 'app/apiSlice';
-import { pageRequest } from 'utils/fetchUtils';
 
 export default function Main() {
   const pageCount = useAppSelector((state) => state.paginator.pageCount);
@@ -29,7 +27,8 @@ export default function Main() {
     error,
   } = useGetMoviesQuery({
     query,
-    page: pageRequest(currentPage, itemsPerPage),
+    currentPage,
+    itemsPerPage,
     model,
     adult,
     year,
@@ -39,8 +38,6 @@ export default function Main() {
     dispatch(changeCurrentPage(0));
     dispatch(changeSearchQuery(query));
   };
-
-  // const searchQueryChange = (query: string) => dispatch(changeSearchQuery(query));
 
   useEffect(() => {
     const componentSaveStorage = () => {
@@ -54,15 +51,22 @@ export default function Main() {
     };
   }, [query]);
 
+  useEffect(() => {
+    if (movies && itemsPerPage === 20)
+      dispatch(changePageCount(movies.total_pages > 100 ? 100 : movies.total_pages));
+    if (movies && itemsPerPage === 10)
+      dispatch(changePageCount(movies.total_pages > 100 ? 200 : movies.total_pages * 2));
+    if (movies && itemsPerPage === 40)
+      dispatch(changePageCount(movies.total_pages > 100 ? 50 : Math.floor(movies.total_pages / 2)));
+  }, [movies, itemsPerPage, dispatch]);
+
   const handlePageClick = (e: { selected: number }) => {
     dispatch(changeCurrentPage(e.selected));
-    dispatch(fetchMovies());
     window.scrollTo(0, 160);
   };
 
   const changePageItems = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(changeItemsPerPage(Number(e.target.value)));
-    dispatch(fetchMovies());
     window.scrollTo(0, 160);
   };
 

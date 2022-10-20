@@ -4,9 +4,16 @@ import { MovieApiQuery, MovieResponse } from 'utils/TMDBinterfaces';
 const SERVER = 'https://api.themoviedb.org/3';
 const API_KEY = 'bd15370077551ed52137260fd06032e7';
 
+const pageRequest = (currentPage: number, itemsPerPage: number) => {
+  if (itemsPerPage === 10) return Math.floor(currentPage / 2) + 1;
+  if (itemsPerPage === 40) return currentPage * 2 + 1;
+  return currentPage + 1;
+};
+
 const createMoviesUrl = ({
   query = '',
-  page = 1,
+  currentPage = 0,
+  itemsPerPage = 20,
   model = 'movie',
   adult = 'no-adult',
   year = 'any-year',
@@ -18,6 +25,8 @@ const createMoviesUrl = ({
     if (model === 'tv') return `&first_air_date_year=${year}`;
     return '';
   };
+  const page = pageRequest(currentPage, itemsPerPage);
+
   if (query)
     return `/search/${model}?api_key=${API_KEY}&query=${query}&page=${page}&include_adult=${searchAdult}${yearQuery()}`;
 

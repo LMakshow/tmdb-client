@@ -106,7 +106,8 @@ export interface MovieReqData {
 
 export interface MovieApiQuery {
   query?: string;
-  page: number;
+  currentPage: number;
+  itemsPerPage: number;
   model: string;
   adult: string;
   year: string;
