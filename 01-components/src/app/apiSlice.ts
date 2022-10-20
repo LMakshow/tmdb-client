@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { MovieApiQuery, MovieResponse } from 'utils/TMDBinterfaces';
+import { MovieApiQuery, MovieDetails, MovieResponse } from 'utils/TMDBinterfaces';
 
 const SERVER = 'https://api.themoviedb.org/3';
 const API_KEY = 'bd15370077551ed52137260fd06032e7';
@@ -33,6 +33,10 @@ const createMoviesUrl = ({
   return `/discover/${model}?api_key=${API_KEY}&page=${page}&include_adult=${searchAdult}${yearQuery()}`;
 };
 
+const createDetailsUrl = ({ id, model = 'movie' }: { id: number; model?: string }) => {
+  return `/${model}/${id}?api_key=${API_KEY}&append_to_response=videos`;
+};
+
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: SERVER }),
@@ -40,8 +44,11 @@ export const apiSlice = createApi({
     getMovies: builder.query<MovieResponse, MovieApiQuery>({
       query: createMoviesUrl,
     }),
+    getDetails: builder.query<MovieDetails, { id: number; model?: string }>({
+      query: createDetailsUrl,
+    }),
   }),
 });
 
 // Export the auto-generated hook for the `getPosts` query endpoint
-export const { useGetMoviesQuery } = apiSlice;
+export const { useGetMoviesQuery, useGetDetailsQuery } = apiSlice;

@@ -34,7 +34,6 @@ const router = createHashRouter([
   },
   {
     path: '/details/:searchModel/:movieId',
-    loader: movieDetailsLoader,
     element: <MoviePage />,
     errorElement: <Page404 />,
   },
