@@ -89,7 +89,8 @@ export default function Main() {
     let moviesShown = movies.results;
     if (itemsPerPage === 10)
       moviesShown = currentPage % 2 ? moviesShown.slice(10) : moviesShown.slice(0, 10);
-    if (itemsPerPage === 40) moviesShown = [...movies.results, ...extraMovies.results];
+    if (itemsPerPage === 40 && extraMovies)
+      moviesShown = [...movies.results, ...extraMovies.results];
     return moviesShown.map((movie) => <MovieCard key={movie.id} {...movie} />);
   };
 
