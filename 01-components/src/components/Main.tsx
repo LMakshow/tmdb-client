@@ -34,6 +34,20 @@ export default function Main() {
     year,
   });
 
+  const { data: extraMovies } = useGetMoviesQuery(
+    {
+      query,
+      currentPage: currentPage + 0.5,
+      itemsPerPage,
+      model,
+      adult,
+      year,
+    },
+    {
+      skip: itemsPerPage !== 40,
+    }
+  );
+
   const searchSubmit = (query: string) => {
     dispatch(changeCurrentPage(0));
     dispatch(changeSearchQuery(query));
@@ -70,6 +84,15 @@ export default function Main() {
     window.scrollTo(0, 160);
   };
 
+  const movieCards = () => {
+    if (!isSuccess) return null;
+    let moviesShown = movies.results;
+    if (itemsPerPage === 10)
+      moviesShown = currentPage % 2 ? moviesShown.slice(10) : moviesShown.slice(0, 10);
+    if (itemsPerPage === 40) moviesShown = [...movies.results, ...extraMovies.results];
+    return moviesShown.map((movie) => <MovieCard key={movie.id} {...movie} />);
+  };
+
   return (
     <div>
       <Heading text="Browse the most popular movies daily or search for any movies from TMDB" />
@@ -80,9 +103,7 @@ export default function Main() {
         {isSuccess && movies.results.length === 0 && (
           <div className="about-page text-big">No matches with the search query.</div>
         )}
-        {isSuccess &&
-          movies.results.length > 0 &&
-          movies.results.map((movie) => <MovieCard key={movie.id} {...movie} />)}
+        {isSuccess && movies.results.length > 0 && movieCards()}
         {isSuccess && movies.results.length > 0 && (
           <div className="pagination-container">
             <select className="select-field" value={itemsPerPage} onChange={changePageItems}>
