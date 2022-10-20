@@ -9,7 +9,7 @@ import AboutUs from 'pages/AboutUs';
 import FormPage from 'pages/FormPage';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
-import MoviePage, { loader as movieDetailsLoader } from 'pages/MoviePage';
+import MoviePage from 'pages/MoviePage';
 
 const router = createHashRouter([
   {
