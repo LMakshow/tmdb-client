@@ -103,3 +103,11 @@ export interface MovieReqData {
   type: string;
   viewed: boolean;
 }
+
+export interface MovieApiQuery {
+  query?: string;
+  page: number;
+  model: string;
+  adult: string;
+  year: string;
+}

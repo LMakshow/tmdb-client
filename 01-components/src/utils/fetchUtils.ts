@@ -1,6 +1,12 @@
 const SERVER = 'https://api.themoviedb.org/3';
 const API_KEY = 'bd15370077551ed52137260fd06032e7';
 
+export const pageRequest = (currentPage: number, itemsPerPage: number) => {
+  if (itemsPerPage === 10) return Math.floor(currentPage / 2) + 1;
+  if (itemsPerPage === 40) return currentPage * 2 + 1;
+  return currentPage + 1;
+};
+
 export const moviesPopularUrl = (
   page = 1,
   searchModel = 'movie',

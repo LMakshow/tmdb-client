@@ -3,6 +3,7 @@ import paginatorReducer from './paginatorSlice';
 import searchReducer from './searchSlice';
 import moviesReducer from './moviesSlice';
 import requestsReducer from './requestsSlice';
+import { apiSlice } from './apiSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,7 +11,9 @@ export const store = configureStore({
     search: searchReducer,
     movies: moviesReducer,
     requests: requestsReducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

@@ -1,13 +1,11 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { fetchMovies } from 'app/moviesSlice';
 import { changeCurrentPage } from 'app/paginatorSlice';
 import { changeSearchAdult, changeSearchModel, changeSearchYear } from 'app/searchSlice';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 interface SearchProps {
-  onQueryChange: (query: string) => void;
-  onSearchSubmit: () => void;
+  onSearchSubmit: (query: string) => void;
   searchQuery: string;
 }
 
@@ -29,32 +27,30 @@ export default function Search(props: SearchProps) {
   const model = useAppSelector((state) => state.search.model);
   const adult = useAppSelector((state) => state.search.adult);
   const year = useAppSelector((state) => state.search.year);
+  const [searchInput, setSearchInput] = useState(props.searchQuery);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.onQueryChange(e.target.value);
+    setSearchInput(e.target.value);
   };
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    props.onSearchSubmit();
+    props.onSearchSubmit(searchInput);
     e.preventDefault();
   };
 
   const changeModel = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(changeSearchModel(e.target.value));
     dispatch(changeCurrentPage(0));
-    dispatch(fetchMovies());
   };
 
   const changeAdult = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(changeSearchAdult(e.target.value));
     dispatch(changeCurrentPage(0));
-    dispatch(fetchMovies());
   };
 
   const changeYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(changeSearchYear(e.target.value));
     dispatch(changeCurrentPage(0));
-    dispatch(fetchMovies());
   };
 
   return (
@@ -69,7 +65,7 @@ export default function Search(props: SearchProps) {
           placeholder="Search"
           autoComplete="off"
           autoFocus
-          value={props.searchQuery}
+          value={searchInput}
           onChange={handleQueryChange}
         />
         <button type="submit" className="search-submit"></button>
