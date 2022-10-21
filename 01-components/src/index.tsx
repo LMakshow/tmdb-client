@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createHashRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.scss';
 import reportWebVitals from './reportWebVitals';
 import App from 'pages/MainPage';
@@ -11,33 +11,38 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 import MoviePage from 'pages/MoviePage';
 
-const router = createHashRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+      errorElement: <Page404 />,
+    },
+    {
+      path: '/index',
+      element: <App />,
+      errorElement: <Page404 />,
+    },
+    {
+      path: '/about',
+      element: <AboutUs />,
+      errorElement: <Page404 />,
+    },
+    {
+      path: '/form',
+      element: <FormPage />,
+      errorElement: <Page404 />,
+    },
+    {
+      path: '/details/:searchModel/:movieId',
+      element: <MoviePage />,
+      errorElement: <Page404 />,
+    },
+  ],
   {
-    path: '/',
-    element: <App />,
-    errorElement: <Page404 />,
-  },
-  {
-    path: '/index',
-    element: <App />,
-    errorElement: <Page404 />,
-  },
-  {
-    path: '/about',
-    element: <AboutUs />,
-    errorElement: <Page404 />,
-  },
-  {
-    path: '/form',
-    element: <FormPage />,
-    errorElement: <Page404 />,
-  },
-  {
-    path: '/details/:searchModel/:movieId',
-    element: <MoviePage />,
-    errorElement: <Page404 />,
-  },
-]);
+    basename: '/lmakshow-REACT2022Q3/06-redux',
+  }
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
