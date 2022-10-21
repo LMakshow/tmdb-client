@@ -16,7 +16,7 @@ describe('Header', () => {
     render(<RouterProvider router={router} />);
 
     expect(screen.getByText('The Movie Database')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Главная TMDB/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /<Main> TMDB/ })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /About us/ })).toBeInTheDocument();
   });
 });

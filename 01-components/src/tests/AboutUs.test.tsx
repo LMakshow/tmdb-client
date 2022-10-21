@@ -16,6 +16,6 @@ describe('Testing AboutUs page', () => {
     render(<RouterProvider router={router} />);
 
     expect(screen.getByText('About Us')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Главная TMDB/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /<Main> TMDB/i })).toBeInTheDocument();
   });
 });

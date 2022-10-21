@@ -80,4 +80,24 @@ a {
   background: $primary-color;
   max-width: 800px;
   width: 95%;
+
+  & a {
+    text-decoration: underline;
+    transition: all 0.3s;
+
+    &:hover {
+      filter: $hover-effect;
+    }
+  }
+}
+
+.about-page__list {
+  text-align: left;
+  list-style: square;
+  font-size: 18px;
+  padding-left: 20px;
+
+  & b {
+    font-size: 20px;
+  }
 }

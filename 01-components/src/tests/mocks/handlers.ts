@@ -21,8 +21,8 @@ export const handlers = [
             release_date: '2022-07-27',
             title: 'Orphan: First Kill',
             video: false,
-            vote_average: 7,
-            vote_count: 797,
+            vote_average: 6.8,
+            vote_count: 805,
           },
         ],
         total_pages: 35297,
@@ -111,7 +111,7 @@ export const handlers = [
         tagline: "There's always been something wrong with Esther.",
         title: 'Orphan: First Kill',
         video: false,
-        vote_average: 6.958,
+        vote_average: 6.8,
         vote_count: 805,
         videos: {
           results: [

@@ -7,7 +7,7 @@ export default function Header(props: { pageName: string }) {
     <div className="header header__container">
       <h1 className="navigation">
         <Link className="header__link main" to="/">
-          <img className="header__icon_main" src={logoMain} alt="Главная" />
+          <img className="header__icon_main" src={logoMain} alt="<Main>" />
           <span className="header__link_span">TMDB</span>
         </Link>
       </h1>

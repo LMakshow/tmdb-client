@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import Main from 'components/Main';
 import userEvent from '@testing-library/user-event';
+import { store } from '../app/store';
+import { Provider } from 'react-redux';
 
 const router = createBrowserRouter([
   {
@@ -12,25 +14,24 @@ const router = createBrowserRouter([
 ]);
 
 describe('Main', () => {
-  test('renders popular movies cards and votes count (797)', async () => {
-    render(<RouterProvider router={router} />);
+  test('renders popular movies cards and average score for the Orphan movie (6.8)', async () => {
+    render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    );
 
     expect(screen.getByText(/Browse the most popular movies/)).toBeInTheDocument();
     await waitFor(() => screen.getByText(/Orphan: First Kill/));
-    expect(screen.getByText(/797/)).toBeInTheDocument();
-  });
-
-  test('shows modal window after a click on a card and renders release date (2022-07-27)', async () => {
-    render(<RouterProvider router={router} />);
-
-    await waitFor(() => screen.getByText(/Orphan: First Kill/));
-    userEvent.click(screen.getByText(/Orphan: First Kill/));
-    await waitFor(() => screen.getByText(/There's always been something wrong with Esther/));
-    expect(screen.getByText(/2022-07-27/)).toBeInTheDocument();
+    expect(screen.getAllByText(/6.8/)[0]).toBeInTheDocument();
   });
 
   test('after submitting search for a movie, renders search results and average score (7.6)', async () => {
-    render(<RouterProvider router={router} />);
+    render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    );
 
     await waitFor(() => screen.getByText(/Orphan: First Kill/));
     userEvent.click(screen.getByRole('searchbox'));

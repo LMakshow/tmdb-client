@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import FormPage from 'pages/FormPage';
 import userEvent from '@testing-library/user-event';
+import { store } from '../app/store';
+import { Provider } from 'react-redux';
 
 const router = createBrowserRouter([
   {
@@ -13,7 +15,11 @@ const router = createBrowserRouter([
 
 describe('Form Page (with user generated cards)', () => {
   test('If entered score is >10, should display the error message', async () => {
-    render(<RouterProvider router={router} />);
+    render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    );
 
     await act(async () => {
       userEvent.type(screen.getAllByRole('textbox')[0], 'New Camera Card');
@@ -23,7 +29,11 @@ describe('Form Page (with user generated cards)', () => {
   });
 
   test('creates new card after submitting', async () => {
-    render(<RouterProvider router={router} />);
+    render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    );
 
     await act(async () => {
       userEvent.type(screen.getAllByRole('textbox')[0], 'New Camera Card');
