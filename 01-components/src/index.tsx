@@ -40,7 +40,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: '/lmakshow-REACT2022Q3/06-redux',
+    basename: '/tmdb-client/06-redux',
   }
 );
 
