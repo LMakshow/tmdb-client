@@ -1,0 +1,151 @@
+.modal-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.modal-card {
+  position: relative;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  padding: 15px;
+  border-radius: 20px;
+  width: 95%;
+  max-width: 1100px;
+  margin: auto;
+  min-height: 439px;
+  box-shadow: rgba(0, 0, 0, 0.3) 10px 10px 10px;
+  animation-name: appear;
+  animation-duration: 0.4s;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 700px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+.modal-card__button {
+  position: absolute;
+  background: $primary-color;
+  border-radius: 10px;
+  font-size: 20px;
+  right: 15px;
+  top: 15px;
+  padding: 5px 20px;
+  transition: all 0.2s;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    background-color: $accent-dark-color;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3), 0px 2px 5px rgba(0, 0, 0, 0.15), 0px 0px 2px 0.00144px rgba(0, 0, 0, 0.12);
+  }
+
+  &:active {
+    background-color: $accent-color;
+  }
+}
+
+.modal-card__poster {
+  box-shadow: rgba(0, 0, 0, 0.3) 3px 3px 10px;
+  height: 100%;
+  max-width: 450px;
+  border-radius: 10px;
+
+  @media screen and (max-width: 940px) {
+    width: 250px;
+  }
+}
+
+.modal-card__text {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 10px 15px 10px 20px;
+  gap: 10px;
+}
+
+.modal-card__movie-name {
+  font-size: 26px;
+  text-align: center;
+}
+
+.modal-card__movie-tagline {
+  font-style: italic;
+  text-align: center;
+}
+
+.movie-card__genre {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 3px 7px;
+  border: $text-secondary-color 1px solid;
+  border-radius: 5px;
+  background-color: $primary-color;
+}
+
+.text-med {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+
+  @media screen and (max-width: 430px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+.text-sm {
+  font-weight: 400;
+  font-size: 14px;
+  color: $text-secondary-color;
+
+  @media screen and (max-width: 430px) {
+    font-size: 12px;
+  }
+}
+
+.color-accent {
+  color: $accent-color;
+}
+
+.scroll-y {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+  scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 7px;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+    }
+}

@@ -1,0 +1,240 @@
+.used-cameras-container {
+  max-width: 1720px;
+  width: 95%;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  grid-template-rows: min-content 1fr;
+  margin: auto;
+  gap: 15px;
+
+  @media screen and (max-width: 1279px) {
+    width: 98%;
+  }
+
+  @media screen and (max-width: 939px) {
+    gap: 10px;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 95%;
+    grid-template-columns: 1fr;
+  }
+}
+
+.used-cameras-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  width: 400px;
+  background: $primary-color;
+  border-radius: 10px;
+  gap: 15px;
+
+  @media screen and (max-width: 939px) {
+    width: auto;
+    gap: 5px;
+  }
+
+  @media screen and (max-width: 767px) {
+    margin-left: -3px;
+  }
+}
+
+.used-cameras-heading {
+  text-align: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  padding: 15px;
+  gap: 15px;
+  justify-content: space-around;
+  background: $primary-color;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px, rgba(0, 0, 0, 0.09) 0px 2px 5px, rgba(0, 0, 0, 0.07) 0px 0px 2px 0.00144px;
+  transition: all .4s ease;
+
+  @media screen and (max-width: 580px) {
+    width: 300px;
+  }
+}
+
+.form-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: no-repeat center/contain url(../assets/svg/checkbox-unchecked.svg);
+
+  &:hover {
+    filter: $hover-effect;
+  }
+
+  &:checked {
+    background: no-repeat center/contain url(../assets/svg/checkbox-checked.svg);
+  }
+}
+
+.form-textarea {
+  width: 100%;
+  font-size: 16px;
+  font-family: $font-main;
+  border: 2px solid $text-secondary-color;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+}
+
+.form-select {
+  width: 40%;
+  font-size: 16px;
+  font-family: $font-main;
+  border: 2px solid $text-secondary-color;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+
+  @media screen and (max-width: 580px) {
+    width: 50%;
+  }
+}
+
+.form-type,
+.form-stab {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-stab__text {
+  font-size: 18px;
+  margin-bottom: -5px;
+}
+
+.form-stab__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 5px;
+  column-gap: 15px;
+
+  @media screen and (max-width: 939px) {
+    align-items: flex-start;
+    gap: 10px;
+
+  }
+
+  @media screen and (max-width: 767px) {
+    align-items: center;
+    flex-direction: row;
+    gap: 5%;
+  }
+}
+
+.form-input {
+  display: flex;
+  gap: 5px;
+  font-size: 18px;
+  align-items: center;
+}
+
+.form-stab__option,
+.form-stock__option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 18px;
+  transition: .3s;
+  cursor: pointer;
+
+  &:hover {
+    filter: $hover-effect;
+  }
+
+  @media screen and (max-width: 359px) {
+    font-size: 16px;
+  }
+}
+
+.form-stock {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn_stock {
+  order: 1;
+}
+
+.form-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-success {
+  color: $accent-color;
+  text-align: center;
+}
+
+.button_small {
+  width: 200px;
+  height: 35px;
+  align-self: center;
+  background: $accent-dark-color;
+  border-radius: 30px;
+  font-family: $font-main;
+  padding: 0 5px;
+  font-size: 20px;
+  color: $text-color;
+  border: 2px solid $text-secondary-color;
+  transition-duration: 0.4s;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid $accent-color;
+  }
+
+  &:active {
+    background: $accent-color;
+  }
+
+  &:disabled {
+    color: $text-secondary-color;
+    cursor: auto;
+
+    &:hover {
+      border: 2px solid $text-secondary-color;
+    }
+
+    &:active {
+      background: $accent-dark-color;
+    }
+  }
+}
+
+.column {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.stretch {
+  width: 100%;
+}
+
+.form-alert {
+  margin-top: -12px;
+  text-align: center;
+  color: $accent-color;
+
+  &::before {
+    display: inline;
+    content: "⚠ ";
+  }
+}

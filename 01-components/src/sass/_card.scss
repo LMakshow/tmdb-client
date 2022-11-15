@@ -1,0 +1,280 @@
+.shop-page,
+.movie-page {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: auto;
+  padding: 10px;
+  border-radius: 10px;
+  background: $primary-color;
+  max-width: 1520px;
+  width: 95%;
+  justify-content: center;
+  font-size: 20px;
+  height: 100%;
+}
+
+.shop-card,
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 10px;
+  width: 240px;
+  min-height: 450px;
+  justify-content: flex-start;
+  background: $primary-color;
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+  transition: all 0.2s;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px, rgba(0, 0, 0, 0.09) 0px 2px 5px, rgba(0, 0, 0, 0.07) 0px 0px 2px 0.00144px;
+
+  &:hover {
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3), 0px 2px 5px rgba(0, 0, 0, 0.15), 0px 0px 2px 0.00144px rgba(0, 0, 0, 0.12);
+  }
+
+  @media screen and (max-width: 630px) {
+    height: auto;
+    justify-content: space-between;
+  }
+
+  @media screen and (max-width: 430px) {
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+
+.movie-card {
+  cursor: pointer;
+}
+
+.shop-card__image {
+  height: 220px;
+  width: auto;
+  align-self: center;
+}
+
+.movie-card__image-container {
+  height: 317px;
+  display: flex;
+  align-items: center;
+}
+
+.movie-card__image {
+  max-height: 317px;
+  max-width: 210px;
+  align-self: center;
+}
+
+.shop-card__name,
+.movie-card__name {
+  font-weight: 700;
+  line-height: 26px;
+  height: 52px;
+  font-size: 21px;
+  overflow: hidden;
+
+  @media screen and (max-width: 630px) {
+    height: auto;
+  }
+
+  @media screen and (max-width: 430px) {
+    font-size: 18px;
+    line-height: 20px;
+  }
+}
+
+.movie-card__name {
+  text-align: center;
+}
+
+.shop-card__block,
+.movie-card__block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 4px;
+
+  @media screen and (max-width: 630px) {
+    column-gap: 5px;
+    row-gap: 0;
+    flex-wrap: wrap;
+  }
+}
+
+.text-big {
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 31px;
+
+  @media screen and (max-width: 430px) {
+    font-size: 22px;
+    line-height: 26px;
+  }
+}
+
+.text-aux {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: $text-secondary-color;
+
+  @media screen and (max-width: 430px) {
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+
+.movie-card__ratings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.movie-card__average {
+  color: $accent-color;
+}
+
+.shop-card__type-stab {
+  @media screen and (max-width: 630px) {
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.text-in-stock {
+  color: $accent-color;
+
+  @media screen and (max-width: 630px) {
+    align-self: center;
+  }
+}
+
+.text-out-of-stock {
+  color: $text-secondary-color;
+
+  @media screen and (max-width: 630px) {
+    align-self: center;
+  }
+}
+
+.text-no-cards {
+  align-self: center;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 24px;
+}
+
+.shop-card__cart {
+  width: 119px;
+  height: 32px;
+  background: $text-color;
+  color: $primary-color;
+  border: $text-color 2px solid;
+  border-radius: 8px;
+  font-family: $font-main;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: $text-secondary-color;
+    border-color: $text-secondary-color;
+  }
+
+  @media screen and (max-width: 630px) {
+    width: 100%;
+    margin-top: 5px;
+  }
+}
+
+.added {
+  background: $accent-color;
+  border: $accent-color 2px solid;
+  color: $accent-dark-color;
+  font-weight: 700;
+
+  &:hover {
+    background-color: $accent-color;
+    border-color: $accent-color;
+  }
+}
+
+.pagination-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  width: 75%;
+  font-size: 24px;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.pagination__link {
+  display: flex;
+  background-color: $primary-color;
+  border-radius: 20px;
+  width: 80px;
+  height: 45px;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination__page,
+.previous,
+.next {
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:not(.disabled):hover {
+    background-color: $accent-dark-color;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3), 0px 2px 5px rgba(0, 0, 0, 0.15), 0px 0px 2px 0.00144px rgba(0, 0, 0, 0.12);
+  }
+
+  &:not(.disabled):active {
+    background-color: $accent-color;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: auto;
+  }
+
+}
+
+.ellipsis {
+  display: flex;
+  background-color: inherit;
+  cursor: auto;
+  border-radius: 20px;
+  width: 45px;
+  height: 45px;
+  align-items: center;
+  justify-content: center;
+}
+
+.selected {
+  border: $accent-color 1px solid;
+  border-radius: 20px;
+}
+
+.previous {
+  margin-right: auto;
+}
+
+.next {
+  margin-left: auto;
+}
