@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/LMakshow/tmdb-client/06-redux/static/css/main.6bb3d6cf.css",
-    "main.js": "/LMakshow/tmdb-client/06-redux/static/js/main.8f8edfaa.js",
-    "static/js/787.17b52311.chunk.js": "/LMakshow/tmdb-client/06-redux/static/js/787.17b52311.chunk.js",
-    "static/media/bg-3.jpg": "/LMakshow/tmdb-client/06-redux/static/media/bg-3.8bed84b21b2804876f22.jpg",
-    "static/media/rss.svg": "/LMakshow/tmdb-client/06-redux/static/media/rss.0b4d42b55fe34f882a909936c2e58a90.svg",
-    "static/media/github.svg": "/LMakshow/tmdb-client/06-redux/static/media/github.246f2df28832b43df66424815a3a4bf1.svg",
-    "static/media/TMDB.svg": "/LMakshow/tmdb-client/06-redux/static/media/TMDB.de1a664e8d0777ca4ddb2a5a298bcfb6.svg",
-    "static/media/TMDB-short.svg": "/LMakshow/tmdb-client/06-redux/static/media/TMDB-short.bb8aa703cb92c9aa31fc1e0b17850ed9.svg",
-    "index.html": "/LMakshow/tmdb-client/06-redux/index.html",
-    "static/media/network-error.svg": "/LMakshow/tmdb-client/06-redux/static/media/network-error.1da19ed8a5bfd18579a0fed133beae79.svg",
-    "static/media/close.svg": "/LMakshow/tmdb-client/06-redux/static/media/close.9de1ab6d9d823e985bf3.svg",
-    "static/media/search.svg": "/LMakshow/tmdb-client/06-redux/static/media/search.41875c4be4f7a1a52bb1.svg",
-    "static/media/checkbox-checked.svg": "/LMakshow/tmdb-client/06-redux/static/media/checkbox-checked.fe4f4918f2a52ef42e73.svg",
-    "static/media/checkbox-unchecked.svg": "/LMakshow/tmdb-client/06-redux/static/media/checkbox-unchecked.70d03136d0b53a62f6cf.svg",
-    "main.6bb3d6cf.css.map": "/LMakshow/tmdb-client/06-redux/static/css/main.6bb3d6cf.css.map",
-    "main.8f8edfaa.js.map": "/LMakshow/tmdb-client/06-redux/static/js/main.8f8edfaa.js.map",
-    "787.17b52311.chunk.js.map": "/LMakshow/tmdb-client/06-redux/static/js/787.17b52311.chunk.js.map"
+    "main.css": "/tmdb-client/06-redux/static/css/main.d9c16594.css",
+    "main.js": "/tmdb-client/06-redux/static/js/main.57809456.js",
+    "static/js/787.17b52311.chunk.js": "/tmdb-client/06-redux/static/js/787.17b52311.chunk.js",
+    "static/media/bg-3.jpg": "/tmdb-client/06-redux/static/media/bg-3.8bed84b21b2804876f22.jpg",
+    "static/media/rss.svg": "/tmdb-client/06-redux/static/media/rss.0b4d42b55fe34f882a909936c2e58a90.svg",
+    "static/media/github.svg": "/tmdb-client/06-redux/static/media/github.246f2df28832b43df66424815a3a4bf1.svg",
+    "static/media/TMDB.svg": "/tmdb-client/06-redux/static/media/TMDB.de1a664e8d0777ca4ddb2a5a298bcfb6.svg",
+    "static/media/TMDB-short.svg": "/tmdb-client/06-redux/static/media/TMDB-short.bb8aa703cb92c9aa31fc1e0b17850ed9.svg",
+    "static/media/network-error.svg": "/tmdb-client/06-redux/static/media/network-error.1da19ed8a5bfd18579a0fed133beae79.svg",
+    "index.html": "/tmdb-client/06-redux/index.html",
+    "static/media/close.svg": "/tmdb-client/06-redux/static/media/close.9de1ab6d9d823e985bf3.svg",
+    "static/media/search.svg": "/tmdb-client/06-redux/static/media/search.41875c4be4f7a1a52bb1.svg",
+    "static/media/checkbox-checked.svg": "/tmdb-client/06-redux/static/media/checkbox-checked.fe4f4918f2a52ef42e73.svg",
+    "static/media/checkbox-unchecked.svg": "/tmdb-client/06-redux/static/media/checkbox-unchecked.70d03136d0b53a62f6cf.svg",
+    "main.d9c16594.css.map": "/tmdb-client/06-redux/static/css/main.d9c16594.css.map",
+    "main.57809456.js.map": "/tmdb-client/06-redux/static/js/main.57809456.js.map",
+    "787.17b52311.chunk.js.map": "/tmdb-client/06-redux/static/js/787.17b52311.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6bb3d6cf.css",
-    "static/js/main.8f8edfaa.js"
+    "static/css/main.d9c16594.css",
+    "static/js/main.57809456.js"
   ]
 }
